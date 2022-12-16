@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/Page",
+  "definitions": {
+    "Page": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/Data"
+        }
+      },
+      "required": [
+        "code",
+        "data",
+        "msg"
+      ],
+      "title": "Page"
+    },
+    "Data": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "total": {
+          "type": "integer"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/List"
+          }
+        }
+      },
+      "required": [
+        "list",
+        "total"
+      ],
+      "title": "Data"
+    },
+    "List": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "postCode": {
+          "type": "string"
+        },
+        "postName": {
+          "type": "string"
+        },
+        "sort": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "integer"
+        },
+        "createTime": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "createTime",
+        "id",
+        "postCode",
+        "postName",
+        "sort",
+        "status"
+      ],
+      "title": "List"
+    }
+  }
+}

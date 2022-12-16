@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/Page",
+  "definitions": {
+    "Page": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/Data"
+        }
+      },
+      "required": [
+        "code",
+        "data",
+        "msg"
+      ],
+      "title": "Page"
+    },
+    "Data": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "total": {
+          "type": "integer"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/List"
+          }
+        }
+      },
+      "required": [
+        "list",
+        "total"
+      ],
+      "title": "Data"
+    },
+    "List": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "$ref": "#/definitions/Name"
+        },
+        "remark": {
+          "$ref": "#/definitions/Remark"
+        },
+        "dataScope": {
+          "type": "integer"
+        },
+        "menuIdList": {
+          "type": "null"
+        },
+        "orgIdList": {
+          "type": "null"
+        },
+        "createTime": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "createTime",
+        "dataScope",
+        "id",
+        "menuIdList",
+        "name",
+        "orgIdList",
+        "remark"
+      ],
+      "title": "List"
+    },
+    "Name": {
+      "type": "string",
+      "enum": [
+        "应用管理员"
+      ],
+      "title": "Name"
+    },
+    "Remark": {
+      "type": "string",
+      "enum": [
+        "备注"
+      ],
+      "title": "Remark"
+    }
+  }
+}

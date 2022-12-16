@@ -1,0 +1,7 @@
+description,postCode,postName,status
+组合查询,gw_001,程序员,1
+postCode单条件查询,gw_001,,
+postName单条件查询,,程序员,
+status单条件查询,,,1
+status单条件查询,,,0
+

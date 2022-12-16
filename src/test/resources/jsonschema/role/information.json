@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/Page",
+  "definitions": {
+    "Page": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/Data"
+        }
+      },
+      "required": [
+        "code",
+        "data",
+        "msg"
+      ],
+      "title": "Page"
+    },
+    "Data": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "remark": {
+          "type": "string"
+        },
+        "dataScope": {
+          "type": "integer"
+        },
+        "menuIdList": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "orgIdList": {
+          "type": "array",
+          "items": {}
+        },
+        "createTime": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "createTime",
+        "dataScope",
+        "id",
+        "menuIdList",
+        "name",
+        "orgIdList",
+        "remark"
+      ],
+      "title": "Data"
+    }
+  }
+}

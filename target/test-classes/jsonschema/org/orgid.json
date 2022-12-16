@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/Orglist",
+  "definitions": {
+    "Orglist": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/Data"
+        }
+      },
+      "required": [
+        "code",
+        "data",
+        "msg"
+      ],
+      "title": "Orglist"
+    },
+    "Data": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "pid": {
+          "type": "integer"
+        },
+        "children": {
+          "type": "array",
+          "items": {}
+        },
+        "name": {
+          "type": "string"
+        },
+        "sort": {
+          "type": "integer"
+        },
+        "createTime": {
+          "type": "string"
+        },
+        "parentName": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "required": [
+        "children",
+        "createTime",
+        "id",
+        "name",
+        "parentName",
+        "pid",
+        "sort"
+      ],
+      "title": "Data"
+    }
+  }
+}
