@@ -75,7 +75,6 @@ public class PutTest extends BaseTest{
     @Test
     @DisplayName("带子机构修改")
     void test01_01() throws JsonProcessingException {
-        
         //放入子机构
         String data = defaultData.jsonString();
         LinkedHashMap<String,Object> children = defaultData.json();
@@ -107,7 +106,6 @@ public class PutTest extends BaseTest{
     })
     @DisplayName("删除非必填项-异常用例")
     void test01_false01(String key){
-        
         Allure.description("删除非必填项" + key + "字段");
         String jsonPathKey = "$." + key;
         //删除key
@@ -151,7 +149,7 @@ public class PutTest extends BaseTest{
         org.save(token,new HashMap()).then().assertThat()
                 .statusCode(200)
                 .body("code",equalTo(500))
-                .body("msg",equalTo("上级ID不能为空"))
+                .body("msg",equalTo("机构名称不能为空"))
                 .body("data",emptyOrNullString());
     }
 

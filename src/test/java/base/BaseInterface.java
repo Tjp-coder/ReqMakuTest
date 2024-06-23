@@ -9,13 +9,9 @@ import io.restassured.specification.RequestSpecification;
  * 基础接口对象类
  */
 public abstract class BaseInterface {
-    RequestSpecification specification = RestAssured.requestSpecification;
 
-    protected static String token;
+    protected static String token;//临时全局token
     protected Response response;
-
-    public String JSONTTPE = "application/json";
-    public String FORMTYPE = "application/x-www-form-urlencoded";
 
     public static void setToken(String str) {
         token = str;
@@ -30,6 +26,8 @@ public abstract class BaseInterface {
     }
 
 
+
+    RequestSpecification specification = RestAssured.requestSpecification;
     /**
      * 统一装载请求配置
      * 调用时可以直接通过赋值进行调用,减少赋值的工作量
@@ -78,3 +76,4 @@ public abstract class BaseInterface {
     }
 
 }
+

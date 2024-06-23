@@ -1,0 +1,31 @@
+-------------------------------------------------------------------------------
+Test set: testcase.org.PutTest
+-------------------------------------------------------------------------------
+Tests run: 11, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 1.508 s <<< FAILURE! - in testcase.org.PutTest
+test01_false01{String}[1]  Time elapsed: 0.108 s  <<< FAILURE!
+java.lang.AssertionError: 
+1 expectation failed.
+JSON path code doesn't match.
+Expected: <0>
+  Actual: <500>
+
+	at testcase.org.PutTest.test01_false01(PutTest.java:115)
+
+test01_false02{String, String}[3]  Time elapsed: 0.104 s  <<< FAILURE!
+java.lang.AssertionError: 
+1 expectation failed.
+JSON path code doesn't match.
+Expected: <500>
+  Actual: <0>
+
+	at testcase.org.PutTest.test01_false02(PutTest.java:141)
+
+test03_false03  Time elapsed: 0.106 s  <<< FAILURE!
+java.lang.AssertionError: 
+1 expectation failed.
+JSON path msg doesn't match.
+Expected: 机构名称不能为空
+  Actual: 上级ID不能为空
+
+	at testcase.org.PutTest.test03_false03(PutTest.java:152)
+

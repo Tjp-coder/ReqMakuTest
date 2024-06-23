@@ -42,7 +42,7 @@ public class SaveTest extends BaseTest {
     @AfterEach
     void delete() {
         List<Integer> integers = new ArrayList();
-        integers.add(id + 1);
+        integers.add(id);
         //每次保存后都进行删除
         role.delete(token, integers)
                 .then().statusCode(200);

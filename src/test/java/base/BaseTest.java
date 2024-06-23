@@ -15,21 +15,12 @@ import util.ParamsUtil;
  * */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public abstract class BaseTest {
-    public static String token = "";
-    //资源根路径
-    public String RESOURCES_PATH = "src/test/resources";
-    public String DEFAULT_PATH = "/template";//模板路径
-    public String PARAMS_PATH = "/params";//参数路径
-
-    //由于matchesJsonSchemaInClasspath方法有getResource方法，就不带Resources路径了
-    public String JSONSCHEMA_PATH = "jsonschema";
-
+    public static String token = "";//测试类的全局token
+    public String RESOURCES_PATH = "src/test/resources";//资源根路径
+    public String JSONSCHEMA_PATH = "jsonschema";//由于matchesJsonSchemaInClasspath方法里有getResource方法，就不带Resources路径了
     //默认模板参数
     protected DocumentContext defaultData;
-
-    //JdbcTemplate省去连接数据库对象和关闭数据库步骤
     protected JdbcTemplate jdbcTemplate = new JdbcTemplate(JDBCUtils.getDataSource());
-
     protected String currentTime;
     @BeforeAll
     void setAll(){
@@ -44,19 +35,12 @@ public abstract class BaseTest {
         jdbcTemplate.update("delete from sys_org");
         jdbcTemplate.update("delete from sys_post");
         jdbcTemplate.update("delete from sys_role");
-//        jdbcTemplate.update("delete from sys_role_menu");
-
+        jdbcTemplate.update("delete from sys_user where username != 'admin'");
     }
 
     @BeforeEach
     void setCurrentTime(){
         currentTime = FakerUtil.getNowTimeStr("yyyy-MM-dd HH:mm:ss");
-    }
-
-    @AfterEach
-    void afterToken(){
-        //还原token状态
-        token = BaseInterface.getToken();
     }
 
     @AfterAll
@@ -65,10 +49,9 @@ public abstract class BaseTest {
         jdbcTemplate.update("delete from sys_org");
         jdbcTemplate.update("delete from sys_post");
         jdbcTemplate.update("delete from sys_role");
-//        jdbcTemplate.update("delete from sys_role_menu");
-
+        jdbcTemplate.update("delete from sys_user where username != 'admin'");
     }
 
 
-
+    //JdbcTemplate省去连接数据库对象和关闭数据库步骤
 }

@@ -25,10 +25,6 @@ public class OrgTest extends BaseTest {
 
     @BeforeAll
     void setUp(){
-        //完成初始化工作
-        new Auth().login(JsonPathUtils.jsonPathParseByFile("/template/auth/login.json").json());
-        BaseTest.token = BaseInterface.getToken();
-
         //重置数据库中的机构数据
         jdbcTemplate.update("delete from sys_org");
         //插入一条数据

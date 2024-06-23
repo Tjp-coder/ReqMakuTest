@@ -1,0 +1,10 @@
+-------------------------------------------------------------------------------
+Test set: testcase.post.PostTest
+-------------------------------------------------------------------------------
+Tests run: 20, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 1.882 s <<< FAILURE! - in testcase.post.PostTest
+test01  Time elapsed: 0.098 s  <<< FAILURE!
+org.opentest4j.MultipleFailuresError: 
+Multiple Failures (1 failure)
+	org.opentest4j.AssertionFailedError: 数据库中数据未删除 ==> expected: <true> but was: <false>
+	at testcase.post.PostTest.test01(PostTest.java:80)
+

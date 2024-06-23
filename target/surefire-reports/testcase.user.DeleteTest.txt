@@ -1,0 +1,10 @@
+-------------------------------------------------------------------------------
+Test set: testcase.user.DeleteTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.267 s <<< FAILURE! - in testcase.user.DeleteTest
+test01  Time elapsed: 0.069 s  <<< FAILURE!
+org.opentest4j.MultipleFailuresError: 
+Multiple Failures (1 failure)
+	org.opentest4j.AssertionFailedError: 数据库中数据未删除 ==> expected: <true> but was: <false>
+	at testcase.user.DeleteTest.test01(DeleteTest.java:73)
+

@@ -6,8 +6,12 @@
  */
 package util;
 
+import cn.hutool.json.JSONArray;
+import com.jayway.jsonpath.DocumentContext;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -37,23 +41,25 @@ public class FakerUtil {
         int s = random.nextInt(max) % (max - min + 1) + min;
         return s;
     }
+
     /**
      * @methodsName: getTimeStamp
-     * @param:  []
+     * @param: []
      * @return: java.lang.String
      */
-    public static String getTimeStamp(){
-        return  String.valueOf(System.currentTimeMillis());
+    public static String getTimeStamp() {
+        return String.valueOf(System.currentTimeMillis());
     }
 
     /**
      * 获得指定格式的当前时间字符串
-     * */
-    public static String getNowTimeStr(String pattern){
+     */
+    public static String getNowTimeStr(String pattern) {
         LocalDateTime dateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
         return dateTime.format(formatter);
     }
+
     /**
      * @methodsName: getNum
      * @param: [start, end]
@@ -105,6 +111,4 @@ public class FakerUtil {
         Random ran = new Random();
         return (char) (0x4e00 + ran.nextInt(delta));
     }
-
-
 }

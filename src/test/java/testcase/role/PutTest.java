@@ -55,7 +55,7 @@ public class PutTest extends BaseTest {
 
     @ParameterizedTest
     @ValueSource(ints = {0,1,2,3,4})
-    @DisplayName("穷举数据范围修改")
+    @DisplayName("穷举dataScope进行修改")
     void test01(Integer dataScope) {
         defaultData.set("$.dataScope",dataScope);
         role.put(token, defaultData.json()).then().assertThat()

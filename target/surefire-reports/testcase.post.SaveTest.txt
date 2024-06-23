@@ -1,0 +1,40 @@
+-------------------------------------------------------------------------------
+Test set: testcase.post.SaveTest
+-------------------------------------------------------------------------------
+Tests run: 9, Failures: 4, Errors: 0, Skipped: 0, Time elapsed: 1.098 s <<< FAILURE! - in testcase.post.SaveTest
+test01_false02{String}[1]  Time elapsed: 0.093 s  <<< FAILURE!
+java.lang.AssertionError: 
+1 expectation failed.
+JSON path code doesn't match.
+Expected: <500>
+  Actual: <0>
+
+	at testcase.post.SaveTest.test01_false02(SaveTest.java:119)
+
+test01_false02{String}[2]  Time elapsed: 0.091 s  <<< FAILURE!
+java.lang.AssertionError: 
+1 expectation failed.
+JSON path code doesn't match.
+Expected: <500>
+  Actual: <0>
+
+	at testcase.post.SaveTest.test01_false02(SaveTest.java:119)
+
+test01_false02{String}[3]  Time elapsed: 0.099 s  <<< FAILURE!
+java.lang.AssertionError: 
+1 expectation failed.
+JSON path code doesn't match.
+Expected: <500>
+  Actual: <0>
+
+	at testcase.post.SaveTest.test01_false02(SaveTest.java:119)
+
+test01_false02{String}[4]  Time elapsed: 0.102 s  <<< FAILURE!
+java.lang.AssertionError: 
+1 expectation failed.
+JSON path code doesn't match.
+Expected: <500>
+  Actual: <0>
+
+	at testcase.post.SaveTest.test01_false02(SaveTest.java:119)
+

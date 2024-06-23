@@ -1,0 +1,22 @@
+-------------------------------------------------------------------------------
+Test set: testcase.attachment.SaveTest
+-------------------------------------------------------------------------------
+Tests run: 8, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.981 s <<< FAILURE! - in testcase.attachment.SaveTest
+test01_false01{String}[2]  Time elapsed: 0.151 s  <<< FAILURE!
+java.lang.AssertionError: 
+1 expectation failed.
+JSON path code doesn't match.
+Expected: <0>
+  Actual: <500>
+
+	at testcase.attachment.SaveTest.test01_false01(SaveTest.java:94)
+
+test01_false01{String}[3]  Time elapsed: 0.095 s  <<< FAILURE!
+java.lang.AssertionError: 
+1 expectation failed.
+JSON path code doesn't match.
+Expected: <0>
+  Actual: <500>
+
+	at testcase.attachment.SaveTest.test01_false01(SaveTest.java:94)
+

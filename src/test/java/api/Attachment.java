@@ -31,14 +31,11 @@ public class Attachment extends BaseInterface {
     //删除
     public Response delete(String token, List<Integer> integers) {
         RestAssured.basePath = "/sys/attachment";
-        Map<String,List> data = new HashMap<>();
-        data.put("integers",integers);
-
         response = RestAssured.given().log().all()
                 .headers("Authorization", token,
                         "Content-Type","application/json"
                 )
-                .body(data)
+                .body(integers)
                 .when()
                 .delete()
                 .then().log().all()
@@ -49,7 +46,6 @@ public class Attachment extends BaseInterface {
     //分页
     public Response page(String token, Map<String,?> data) {
         RestAssured.basePath = "/sys/attachment/page";
-
         response = RestAssured.given().log().all()
                 .headers("Authorization", token,
                         "Content-Type","application/x-www-form-urlencoded"
@@ -61,10 +57,4 @@ public class Attachment extends BaseInterface {
                 .extract().response();
         return response;
     }
-
-
-
-
-
-
 }

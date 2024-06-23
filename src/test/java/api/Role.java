@@ -58,7 +58,7 @@ public class Role extends BaseInterface {
 
     //数据权限
     public Response dataScope(String token,Map<String,?> data) {
-        RestAssured.basePath = "/sys/data-scope";
+        RestAssured.basePath = "/sys/data-scope.json";
         response = RestAssured.given().log().all()
                 .headers("Authorization", token,
                         "Content-Type","application/json"

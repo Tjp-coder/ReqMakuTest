@@ -1,0 +1,22 @@
+-------------------------------------------------------------------------------
+Test set: testcase.post.PutTest
+-------------------------------------------------------------------------------
+Tests run: 8, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.952 s <<< FAILURE! - in testcase.post.PutTest
+test01_false02{String}[3]  Time elapsed: 0.117 s  <<< FAILURE!
+java.lang.AssertionError: 
+1 expectation failed.
+JSON path code doesn't match.
+Expected: <500>
+  Actual: <0>
+
+	at testcase.post.PutTest.test01_false02(PutTest.java:109)
+
+test01_false02{String}[4]  Time elapsed: 0.12 s  <<< FAILURE!
+java.lang.AssertionError: 
+1 expectation failed.
+JSON path code doesn't match.
+Expected: <500>
+  Actual: <0>
+
+	at testcase.post.PutTest.test01_false02(PutTest.java:109)
+

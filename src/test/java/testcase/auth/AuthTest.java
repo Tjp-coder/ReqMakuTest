@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 @Feature("认证管理模块")
 public class AuthTest {
     private Auth auth;
+
     private final String DEFAULT_LOGIN_PATH = "/template/auth/login.json";
 
     @BeforeAll

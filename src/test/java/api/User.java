@@ -3,11 +3,23 @@ package api;
 import base.BaseInterface;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import lombok.SneakyThrows;
+import org.apache.commons.io.IOUtils;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+/**
+ * 用户管理模块
+ * */
 public class User extends BaseInterface {
+
     //保存
     public Response save(String token, Map<String, ?> data) {
         RestAssured.basePath = "/sys/user";
@@ -71,13 +83,12 @@ public class User extends BaseInterface {
 
 
     //导入用户
-    public Response importUser(String token, Map<String, ?> data) {
+    public Response importUser(String token, File file) {
         RestAssured.basePath = "/sys/user/import";
         response = RestAssured.given().log().all()
-                .headers("Authorization", token,
-                        "Content-Type", "application/json"
+                .headers("Authorization", token
                 )
-                .queryParams(data)
+                .multiPart("file",file)
                 .when()
                 .post()
                 .then().log().all()
@@ -128,4 +139,23 @@ public class User extends BaseInterface {
                 .extract().response();
         return response;
     }
+
+    //导出用户
+    @SneakyThrows
+    public Response userExport(String token, String resPath) {
+        RestAssured.basePath = "/sys/user/export";
+        response = RestAssured.given().log().all()
+                .headers("Authorization", token
+                )
+                .when()
+                .get()
+                .then().log().all()
+                .extract().response();
+        //写入到指定文件
+        InputStream  inputStream = response.asInputStream();
+        OutputStream outputStream = Files.newOutputStream(Paths.get(resPath));
+        IOUtils.copy(inputStream,outputStream);
+        return response;
+    }
+
 }

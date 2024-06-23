@@ -1,0 +1,13 @@
+-------------------------------------------------------------------------------
+Test set: testcase.role.RoleUserTest
+-------------------------------------------------------------------------------
+Tests run: 10, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.576 s <<< FAILURE! - in testcase.role.RoleUserTest
+test02_false02{String, String}[2]  Time elapsed: 0.034 s  <<< FAILURE!
+java.lang.AssertionError: 
+1 expectation failed.
+JSON path msg doesn't match.
+Expected: 每页条数不能为空
+  Actual: 页码不能为空
+
+	at testcase.role.RoleUserTest.test02_false02(RoleUserTest.java:165)
+

@@ -1,0 +1,17 @@
+-------------------------------------------------------------------------------
+Test set: testcase.role.PutTest
+-------------------------------------------------------------------------------
+Tests run: 13, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 4.055 s <<< FAILURE! - in testcase.role.PutTest
+test01_false01{String}[1]  Time elapsed: 0.239 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: 列表查询未查到对应姓名 ==> expected: <true> but was: <false>
+	at testcase.role.PutTest.test01_false01(PutTest.java:104)
+
+test01_false01{String}[4]  Time elapsed: 0.096 s  <<< FAILURE!
+java.lang.AssertionError: 
+1 expectation failed.
+JSON path code doesn't match.
+Expected: <0>
+  Actual: <500>
+
+	at testcase.role.PutTest.test01_false01(PutTest.java:97)
+

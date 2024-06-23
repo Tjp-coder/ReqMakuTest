@@ -1,0 +1,10 @@
+{
+  "page": 1,
+  "limit": 10,
+  "order": 1,
+  "asc": 1,
+  "username": "gw",
+  "mobile": "程序员",
+  "gender": 1,
+  "roleId": 1
+}

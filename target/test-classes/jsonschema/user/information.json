@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/Page",
+  "definitions": {
+    "Page": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/Data"
+        }
+      },
+      "required": [
+        "code",
+        "data",
+        "msg"
+      ],
+      "title": "Page"
+    },
+    "Data": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "username": {
+          "type": "string"
+        },
+        "realName": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "integer"
+        },
+        "email": {
+          "type": "string"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "orgId": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "integer"
+        },
+        "roleIdList": {
+          "type": "array",
+          "items": {}
+        },
+        "postIdList": {
+          "type": "array",
+          "items": {}
+        },
+        "superAdmin": {
+          "type": "integer"
+        },
+        "orgName": {
+          "type": "null"
+        },
+        "createTime": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "avatar",
+        "createTime",
+        "email",
+        "gender",
+        "id",
+        "mobile",
+        "orgId",
+        "orgName",
+        "postIdList",
+        "realName",
+        "roleIdList",
+        "status",
+        "superAdmin",
+        "username"
+      ],
+      "title": "Data"
+    }
+  }
+}

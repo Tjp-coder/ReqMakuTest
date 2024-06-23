@@ -1,0 +1,85 @@
+-------------------------------------------------------------------------------
+Test set: testcase.user.SaveTest
+-------------------------------------------------------------------------------
+Tests run: 32, Failures: 9, Errors: 0, Skipped: 0, Time elapsed: 4.713 s <<< FAILURE! - in testcase.user.SaveTest
+test01_false01{String}[2]  Time elapsed: 0.082 s  <<< FAILURE!
+java.lang.AssertionError: 
+1 expectation failed.
+JSON path code doesn't match.
+Expected: <0>
+  Actual: <500>
+
+	at testcase.user.SaveTest.test01_false01(SaveTest.java:107)
+
+test01_false01{String}[5]  Time elapsed: 0.086 s  <<< FAILURE!
+java.lang.AssertionError: 
+1 expectation failed.
+JSON path code doesn't match.
+Expected: <0>
+  Actual: <500>
+
+	at testcase.user.SaveTest.test01_false01(SaveTest.java:107)
+
+test01_false01{String}[6]  Time elapsed: 0.126 s  <<< FAILURE!
+java.lang.AssertionError: 
+1 expectation failed.
+JSON path code doesn't match.
+Expected: <0>
+  Actual: <500>
+
+	at testcase.user.SaveTest.test01_false01(SaveTest.java:107)
+
+test01_false02{String, String}[3]  Time elapsed: 0.082 s  <<< FAILURE!
+java.lang.AssertionError: 
+1 expectation failed.
+JSON path code doesn't match.
+Expected: <500>
+  Actual: <0>
+
+	at testcase.user.SaveTest.test01_false02(SaveTest.java:135)
+
+test01_false02{String, String}[6]  Time elapsed: 0.072 s  <<< FAILURE!
+java.lang.AssertionError: 
+1 expectation failed.
+JSON path code doesn't match.
+Expected: <500>
+  Actual: <0>
+
+	at testcase.user.SaveTest.test01_false02(SaveTest.java:135)
+
+test01_false03{String}[6]  Time elapsed: 0.076 s  <<< FAILURE!
+java.lang.AssertionError: 
+1 expectation failed.
+JSON path code doesn't match.
+Expected: <0>
+  Actual: <500>
+
+	at testcase.user.SaveTest.test01_false03(SaveTest.java:167)
+
+test01_false03{String}[9]  Time elapsed: 0.076 s  <<< FAILURE!
+java.lang.AssertionError: 
+1 expectation failed.
+JSON path code doesn't match.
+Expected: <0>
+  Actual: <500>
+
+	at testcase.user.SaveTest.test01_false03(SaveTest.java:167)
+
+test01_false04{String, String}[3]  Time elapsed: 0.076 s  <<< FAILURE!
+java.lang.AssertionError: 
+1 expectation failed.
+JSON path code doesn't match.
+Expected: <500>
+  Actual: <0>
+
+	at testcase.user.SaveTest.test01_false04(SaveTest.java:197)
+
+test01_false04{String, String}[6]  Time elapsed: 0.077 s  <<< FAILURE!
+java.lang.AssertionError: 
+1 expectation failed.
+JSON path code doesn't match.
+Expected: <500>
+  Actual: <0>
+
+	at testcase.user.SaveTest.test01_false04(SaveTest.java:197)
+

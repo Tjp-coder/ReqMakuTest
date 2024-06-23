@@ -54,13 +54,11 @@ public class RoleTest extends BaseTest {
                 .body("code", equalTo(0))
                 .body("msg", equalTo("success"))
                 .body("data", emptyOrNullString());
-
         //列表查询断言
         //查询列表断言是否有对应id
         List<?> idList;
         String body = role.list(token).getBody().asString();
         idList = JsonPath.read(body,"$.."+ "id");
-
         //去数据库验证是否删除此数据
         Map<String, Object> query = jdbcTemplate.queryForMap("SELECT * FROM sys_role WHERE id=" + id);
         assertAll(()->{

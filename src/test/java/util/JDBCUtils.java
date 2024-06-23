@@ -6,7 +6,6 @@ package util;
 //                2. 释放资源
 //                3. 获取连接池的方法
 
-
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 
 import javax.sql.DataSource;

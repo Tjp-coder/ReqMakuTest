@@ -1,0 +1,113 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/Page",
+  "definitions": {
+    "Page": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/Data"
+        }
+      },
+      "required": [
+        "code",
+        "data",
+        "msg"
+      ],
+      "title": "Page"
+    },
+    "Data": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "total": {
+          "type": "integer"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/List"
+          }
+        }
+      },
+      "required": [
+        "list",
+        "total"
+      ],
+      "title": "Data"
+    },
+    "List": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "username": {
+          "$ref": "#/definitions/Username"
+        },
+        "ip": {
+          "$ref": "#/definitions/IP"
+        },
+        "address": {
+          "$ref": "#/definitions/Address"
+        },
+        "userAgent": {
+          "$ref": "#/definitions/UserAgent"
+        },
+        "status": {
+          "type": "integer"
+        },
+        "operation": {
+          "type": "integer"
+        },
+        "createTime": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "address",
+        "createTime",
+        "id",
+        "ip",
+        "operation",
+        "status",
+        "userAgent",
+        "username"
+      ],
+      "title": "List"
+    },
+    "Address": {
+      "type": "string",
+      "enum": [
+        "内网IP"
+      ],
+      "title": "Address"
+    },
+    "IP": {
+      "type": "string",
+      "enum": [
+        "127.0.0.1"
+      ],
+      "title": "IP"
+    },
+    "UserAgent": {
+      "type": "string",
+      "title": "UserAgent"
+    },
+    "Username": {
+      "type": "string",
+      "enum": [
+        "admin"
+      ],
+      "title": "Username"
+    }
+  }
+}

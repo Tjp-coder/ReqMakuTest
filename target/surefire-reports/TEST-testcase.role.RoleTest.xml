@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="testcase.role.RoleTest" time="2.123" tests="14" errors="0" skipped="0" failures="1">
+  <properties>
+    <property name="sun.desktop" value="windows"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="java.specification.version" value="1.8"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="GBK"/>
+    <property name="java.class.path" value="E:\03_WorkDirectory\graduatedSys\ReqMakuTest\target\test-classes;E:\03_WorkDirectory\graduatedSys\ReqMakuTest\target\classes;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\io\rest-assured\rest-assured\4.4.0\rest-assured-4.4.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\codehaus\groovy\groovy\3.0.8\groovy-3.0.8.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\codehaus\groovy\groovy-xml\3.0.8\groovy-xml-3.0.8.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\apache\httpcomponents\httpclient\4.5.13\httpclient-4.5.13.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\apache\httpcomponents\httpcore\4.4.13\httpcore-4.4.13.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\commons-logging\commons-logging\1.2\commons-logging-1.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\commons-codec\commons-codec\1.11\commons-codec-1.11.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\apache\httpcomponents\httpmime\4.5.13\httpmime-4.5.13.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\hamcrest\hamcrest\2.1\hamcrest-2.1.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\ccil\cowan\tagsoup\tagsoup\1.2.1\tagsoup-1.2.1.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\io\rest-assured\json-path\4.4.0\json-path-4.4.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\codehaus\groovy\groovy-json\3.0.8\groovy-json-3.0.8.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\io\rest-assured\rest-assured-common\4.4.0\rest-assured-common-4.4.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\io\rest-assured\xml-path\4.4.0\xml-path-4.4.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\apache\commons\commons-lang3\3.11\commons-lang3-3.11.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\jakarta\xml\bind\jakarta.xml.bind-api\2.3.3\jakarta.xml.bind-api-2.3.3.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\jakarta\activation\jakarta.activation-api\1.2.2\jakarta.activation-api-1.2.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\sun\xml\bind\jaxb-impl\2.3.3\jaxb-impl-2.3.3.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\jayway\jsonpath\json-path\2.6.0\json-path-2.6.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\net\minidev\json-smart\2.4.7\json-smart-2.4.7.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\net\minidev\accessors-smart\2.4.7\accessors-smart-2.4.7.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\ow2\asm\asm\9.1\asm-9.1.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\slf4j\slf4j-api\1.7.30\slf4j-api-1.7.30.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\io\rest-assured\json-schema-validator\4.4.0\json-schema-validator-4.4.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\github\java-json-tools\json-schema-validator\2.2.14\json-schema-validator-2.2.14.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\google\guava\guava\28.2-android\guava-28.2-android.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\google\guava\failureaccess\1.0.1\failureaccess-1.0.1.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\google\guava\listenablefuture\9999.0-empty-to-avoid-conflict-with-guava\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\checkerframework\checker-compat-qual\2.5.5\checker-compat-qual-2.5.5.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\google\errorprone\error_prone_annotations\2.3.4\error_prone_annotations-2.3.4.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\google\j2objc\j2objc-annotations\1.3\j2objc-annotations-1.3.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\github\java-json-tools\jackson-coreutils-equivalence\1.0\jackson-coreutils-equivalence-1.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\github\java-json-tools\jackson-coreutils\2.0\jackson-coreutils-2.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\github\java-json-tools\msg-simple\1.2\msg-simple-1.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\github\java-json-tools\btf\1.3\btf-1.3.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\github\java-json-tools\json-schema-core\1.2.14\json-schema-core-1.2.14.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\github\java-json-tools\uri-template\0.10\uri-template-0.10.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\mozilla\rhino\1.7.7.2\rhino-1.7.7.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\sun\mail\mailapi\1.6.2\mailapi-1.6.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\joda-time\joda-time\2.10.5\joda-time-2.10.5.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\googlecode\libphonenumber\libphonenumber\8.11.1\libphonenumber-8.11.1.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\google\code\findbugs\jsr305\3.0.2\jsr305-3.0.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\net\sf\jopt-simple\jopt-simple\5.0.4\jopt-simple-5.0.4.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\commons-io\commons-io\2.11.0\commons-io-2.11.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\junit\platform\junit-platform-launcher\1.5.2\junit-platform-launcher-1.5.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\junit\platform\junit-platform-engine\1.5.2\junit-platform-engine-1.5.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\junit\platform\junit-platform-commons\1.5.2\junit-platform-commons-1.5.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\junit\jupiter\junit-jupiter-engine\5.5.2\junit-jupiter-engine-5.5.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\junit\jupiter\junit-jupiter-api\5.5.2\junit-jupiter-api-5.5.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\junit\vintage\junit-vintage-engine\5.5.2\junit-vintage-engine-5.5.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\junit\junit\4.12\junit-4.12.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\junit\jupiter\junit-jupiter-params\5.5.2\junit-jupiter-params-5.5.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\io\qameta\allure\allure-junit5\2.13.2\allure-junit5-2.13.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\io\qameta\allure\allure-junit-platform\2.13.2\allure-junit-platform-2.13.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\io\qameta\allure\allure-java-commons\2.13.2\allure-java-commons-2.13.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\io\qameta\allure\allure-model\2.13.2\allure-model-2.13.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\apache\tika\tika-core\1.20\tika-core-1.20.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\jooq\joor-java-8\0.9.10\joor-java-8-0.9.10.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\fasterxml\jackson\core\jackson-databind\2.10.0\jackson-databind-2.10.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\fasterxml\jackson\core\jackson-annotations\2.10.0\jackson-annotations-2.10.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\fasterxml\jackson\core\jackson-core\2.10.0\jackson-core-2.10.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\fasterxml\jackson\dataformat\jackson-dataformat-yaml\2.10.0\jackson-dataformat-yaml-2.10.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\yaml\snakeyaml\1.24\snakeyaml-1.24.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\cn\hutool\hutool-all\5.6.6\hutool-all-5.6.6.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\projectlombok\lombok\1.18.4\lombok-1.18.4.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\mysql\mysql-connector-java\8.0.21\mysql-connector-java-8.0.21.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\google\protobuf\protobuf-java\3.11.4\protobuf-java-3.11.4.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\alibaba\druid\1.2.3\druid-1.2.3.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\springframework\spring-jdbc\5.2.3.RELEASE\spring-jdbc-5.2.3.RELEASE.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\springframework\spring-beans\5.2.3.RELEASE\spring-beans-5.2.3.RELEASE.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\springframework\spring-core\5.2.3.RELEASE\spring-core-5.2.3.RELEASE.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\springframework\spring-jcl\5.2.3.RELEASE\spring-jcl-5.2.3.RELEASE.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\springframework\spring-tx\5.2.3.RELEASE\spring-tx-5.2.3.RELEASE.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\alibaba\easyexcel\3.1.1\easyexcel-3.1.1.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\alibaba\easyexcel-core\3.1.1\easyexcel-core-3.1.1.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\alibaba\easyexcel-support\3.1.1\easyexcel-support-3.1.1.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\apache\poi\poi\4.1.2\poi-4.1.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\apache\commons\commons-collections4\4.4\commons-collections4-4.4.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\apache\commons\commons-math3\3.6.1\commons-math3-3.6.1.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\zaxxer\SparseBitSet\1.2\SparseBitSet-1.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\apache\poi\poi-ooxml\4.1.2\poi-ooxml-4.1.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\apache\commons\commons-compress\1.19\commons-compress-1.19.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\github\virtuald\curvesapi\1.06\curvesapi-1.06.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\apache\poi\poi-ooxml-schemas\4.1.2\poi-ooxml-schemas-4.1.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\apache\xmlbeans\xmlbeans\3.1.0\xmlbeans-3.1.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\apache\commons\commons-csv\1.8\commons-csv-1.8.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\ehcache\ehcache\3.9.9\ehcache-3.9.9.jar;"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="http://java.oracle.com/"/>
+    <property name="user.timezone" value="Asia/Shanghai"/>
+    <property name="java.vm.specification.version" value="1.8"/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="user.country" value="CN"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.boot.library.path" value="E:\Program Files\Java\jdk1.8.0_172\jre\bin"/>
+    <property name="sun.java.command" value="C:\Users\83821\AppData\Local\Temp\surefire8686919994392387926\surefirebooter2552667821957062822.jar C:\Users\83821\AppData\Local\Temp\surefire8686919994392387926 2023-02-25T00-11-20_510-jvmRun1 surefire2096442683104292536tmp surefire_02141660127669172546tmp"/>
+    <property name="surefire.test.class.path" value="E:\03_WorkDirectory\graduatedSys\ReqMakuTest\target\test-classes;E:\03_WorkDirectory\graduatedSys\ReqMakuTest\target\classes;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\io\rest-assured\rest-assured\4.4.0\rest-assured-4.4.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\codehaus\groovy\groovy\3.0.8\groovy-3.0.8.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\codehaus\groovy\groovy-xml\3.0.8\groovy-xml-3.0.8.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\apache\httpcomponents\httpclient\4.5.13\httpclient-4.5.13.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\apache\httpcomponents\httpcore\4.4.13\httpcore-4.4.13.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\commons-logging\commons-logging\1.2\commons-logging-1.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\commons-codec\commons-codec\1.11\commons-codec-1.11.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\apache\httpcomponents\httpmime\4.5.13\httpmime-4.5.13.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\hamcrest\hamcrest\2.1\hamcrest-2.1.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\ccil\cowan\tagsoup\tagsoup\1.2.1\tagsoup-1.2.1.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\io\rest-assured\json-path\4.4.0\json-path-4.4.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\codehaus\groovy\groovy-json\3.0.8\groovy-json-3.0.8.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\io\rest-assured\rest-assured-common\4.4.0\rest-assured-common-4.4.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\io\rest-assured\xml-path\4.4.0\xml-path-4.4.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\apache\commons\commons-lang3\3.11\commons-lang3-3.11.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\jakarta\xml\bind\jakarta.xml.bind-api\2.3.3\jakarta.xml.bind-api-2.3.3.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\jakarta\activation\jakarta.activation-api\1.2.2\jakarta.activation-api-1.2.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\sun\xml\bind\jaxb-impl\2.3.3\jaxb-impl-2.3.3.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\jayway\jsonpath\json-path\2.6.0\json-path-2.6.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\net\minidev\json-smart\2.4.7\json-smart-2.4.7.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\net\minidev\accessors-smart\2.4.7\accessors-smart-2.4.7.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\ow2\asm\asm\9.1\asm-9.1.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\slf4j\slf4j-api\1.7.30\slf4j-api-1.7.30.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\io\rest-assured\json-schema-validator\4.4.0\json-schema-validator-4.4.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\github\java-json-tools\json-schema-validator\2.2.14\json-schema-validator-2.2.14.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\google\guava\guava\28.2-android\guava-28.2-android.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\google\guava\failureaccess\1.0.1\failureaccess-1.0.1.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\google\guava\listenablefuture\9999.0-empty-to-avoid-conflict-with-guava\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\checkerframework\checker-compat-qual\2.5.5\checker-compat-qual-2.5.5.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\google\errorprone\error_prone_annotations\2.3.4\error_prone_annotations-2.3.4.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\google\j2objc\j2objc-annotations\1.3\j2objc-annotations-1.3.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\github\java-json-tools\jackson-coreutils-equivalence\1.0\jackson-coreutils-equivalence-1.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\github\java-json-tools\jackson-coreutils\2.0\jackson-coreutils-2.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\github\java-json-tools\msg-simple\1.2\msg-simple-1.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\github\java-json-tools\btf\1.3\btf-1.3.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\github\java-json-tools\json-schema-core\1.2.14\json-schema-core-1.2.14.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\github\java-json-tools\uri-template\0.10\uri-template-0.10.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\mozilla\rhino\1.7.7.2\rhino-1.7.7.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\sun\mail\mailapi\1.6.2\mailapi-1.6.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\joda-time\joda-time\2.10.5\joda-time-2.10.5.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\googlecode\libphonenumber\libphonenumber\8.11.1\libphonenumber-8.11.1.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\google\code\findbugs\jsr305\3.0.2\jsr305-3.0.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\net\sf\jopt-simple\jopt-simple\5.0.4\jopt-simple-5.0.4.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\commons-io\commons-io\2.11.0\commons-io-2.11.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\junit\platform\junit-platform-launcher\1.5.2\junit-platform-launcher-1.5.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\junit\platform\junit-platform-engine\1.5.2\junit-platform-engine-1.5.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\junit\platform\junit-platform-commons\1.5.2\junit-platform-commons-1.5.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\junit\jupiter\junit-jupiter-engine\5.5.2\junit-jupiter-engine-5.5.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\junit\jupiter\junit-jupiter-api\5.5.2\junit-jupiter-api-5.5.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\junit\vintage\junit-vintage-engine\5.5.2\junit-vintage-engine-5.5.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\junit\junit\4.12\junit-4.12.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\junit\jupiter\junit-jupiter-params\5.5.2\junit-jupiter-params-5.5.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\io\qameta\allure\allure-junit5\2.13.2\allure-junit5-2.13.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\io\qameta\allure\allure-junit-platform\2.13.2\allure-junit-platform-2.13.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\io\qameta\allure\allure-java-commons\2.13.2\allure-java-commons-2.13.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\io\qameta\allure\allure-model\2.13.2\allure-model-2.13.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\apache\tika\tika-core\1.20\tika-core-1.20.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\jooq\joor-java-8\0.9.10\joor-java-8-0.9.10.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\fasterxml\jackson\core\jackson-databind\2.10.0\jackson-databind-2.10.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\fasterxml\jackson\core\jackson-annotations\2.10.0\jackson-annotations-2.10.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\fasterxml\jackson\core\jackson-core\2.10.0\jackson-core-2.10.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\fasterxml\jackson\dataformat\jackson-dataformat-yaml\2.10.0\jackson-dataformat-yaml-2.10.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\yaml\snakeyaml\1.24\snakeyaml-1.24.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\cn\hutool\hutool-all\5.6.6\hutool-all-5.6.6.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\projectlombok\lombok\1.18.4\lombok-1.18.4.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\mysql\mysql-connector-java\8.0.21\mysql-connector-java-8.0.21.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\google\protobuf\protobuf-java\3.11.4\protobuf-java-3.11.4.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\alibaba\druid\1.2.3\druid-1.2.3.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\springframework\spring-jdbc\5.2.3.RELEASE\spring-jdbc-5.2.3.RELEASE.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\springframework\spring-beans\5.2.3.RELEASE\spring-beans-5.2.3.RELEASE.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\springframework\spring-core\5.2.3.RELEASE\spring-core-5.2.3.RELEASE.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\springframework\spring-jcl\5.2.3.RELEASE\spring-jcl-5.2.3.RELEASE.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\springframework\spring-tx\5.2.3.RELEASE\spring-tx-5.2.3.RELEASE.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\alibaba\easyexcel\3.1.1\easyexcel-3.1.1.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\alibaba\easyexcel-core\3.1.1\easyexcel-core-3.1.1.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\alibaba\easyexcel-support\3.1.1\easyexcel-support-3.1.1.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\apache\poi\poi\4.1.2\poi-4.1.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\apache\commons\commons-collections4\4.4\commons-collections4-4.4.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\apache\commons\commons-math3\3.6.1\commons-math3-3.6.1.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\zaxxer\SparseBitSet\1.2\SparseBitSet-1.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\apache\poi\poi-ooxml\4.1.2\poi-ooxml-4.1.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\apache\commons\commons-compress\1.19\commons-compress-1.19.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\com\github\virtuald\curvesapi\1.06\curvesapi-1.06.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\apache\poi\poi-ooxml-schemas\4.1.2\poi-ooxml-schemas-4.1.2.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\apache\xmlbeans\xmlbeans\3.1.0\xmlbeans-3.1.0.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\apache\commons\commons-csv\1.8\commons-csv-1.8.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository\org\ehcache\ehcache\3.9.9\ehcache-3.9.9.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\83821"/>
+    <property name="user.language" value="zh"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.home" value="E:\Program Files\Java\jdk1.8.0_172\jre"/>
+    <property name="basedir" value="E:\03_WorkDirectory\graduatedSys\ReqMakuTest"/>
+    <property name="file.separator" value="\"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="surefire.real.class.path" value="C:\Users\83821\AppData\Local\Temp\surefire8686919994392387926\surefirebooter2552667821957062822.jar;E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository/org/aspectj/aspectjweaver/1.9.5/aspectjweaver-1.9.5.jar"/>
+    <property name="sun.boot.class.path" value="E:\Program Files\Java\jdk1.8.0_172\jre\lib\resources.jar;E:\Program Files\Java\jdk1.8.0_172\jre\lib\rt.jar;E:\Program Files\Java\jdk1.8.0_172\jre\lib\sunrsasign.jar;E:\Program Files\Java\jdk1.8.0_172\jre\lib\jsse.jar;E:\Program Files\Java\jdk1.8.0_172\jre\lib\jce.jar;E:\Program Files\Java\jdk1.8.0_172\jre\lib\charsets.jar;E:\Program Files\Java\jdk1.8.0_172\jre\lib\jfr.jar;E:\Program Files\Java\jdk1.8.0_172\jre\classes"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="1.8.0_172-b11"/>
+    <property name="user.name" value="83821"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.endorsed.dirs" value="E:\Program Files\Java\jdk1.8.0_172\jre\lib\endorsed"/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="file.encoding" value="GBK"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="localRepository" value="E:\Program Files (x86)\Tools\apache-maven-3.8.1\maven_repository"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="C:\Users\83821\AppData\Local\Temp\"/>
+    <property name="java.version" value="1.8.0_172"/>
+    <property name="user.dir" value="E:\03_WorkDirectory\graduatedSys\ReqMakuTest"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="java.library.path" value="E:\Program Files\Java\jdk1.8.0_172\jre\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;E:\Program Files\py\programFile\Python\Python39\Scripts;C:\Windows\System32;E:\Program Files\MinGw\bin;E:\webDrivers;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;E:\server\apache-tomcat-8.0.50-windows-x64\apache-tomcat-8.0.50\lib;C:\ProgramData\chocolatey\bin;E:\Program Files (x86)\PICT\;E:\Program Files\Java\jdk1.8.0_172\bin;E:\Program Files\Java\jdk1.8.0_172\jre\bin;E:\Program Files (x86)\Tools\apache-maven-3.8.1\bin;E:\Program Files (x86)\Tools\apache-jmeter-5.4.1\bin;C:\Program Files\MySQL\MySQL Server 8.0\bin;E:\Git\cmd;C:\Program Files\MySQL\MySQL Server 8.0\bin;C:\Users\83821\Downloads\Redis-x64-3.0.504;E:\Program Files\py\programFile\Python\Python39;C:\Users\83821\AppData\Roaming\nvm;C:\Program Files\nodejs;D:\adb\scrcpy-win64-v1.24;E:\Program Files (x86)\allure-2.19.0\bin;E:\Program Files (x86)\NetSarang\Xftp 7\;E:\Program Files (x86)\Xshell7\;E:\Program Files\HPE\LoadRunner\strawberry-perl\perl\bin;C:\Users\83821\AppData\Local\Microsoft\WindowsApps;E:\Program Files\MinGw\bin;E:\Program Files (x86)\Pycharm\PyCharm 2021.1.1\bin;E:\Program Files (x86)\Tesseract-OCR;E:\Program Files\Mozilla_Firefox;%CLion%;E:\Program Files\py\programFile\Microsoft VS Code\bin;%PyCharm Community Edition%;e:\Program Files\JetBrains\WebStorm 2022.2.2\bin;;C:\Users\83821\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Users\83821\AppData\Local\Programs\Fiddler;."/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.version" value="25.172-b11"/>
+    <property name="java.ext.dirs" value="E:\Program Files\Java\jdk1.8.0_172\jre\lib\ext;C:\WINDOWS\Sun\Java\lib\ext"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="52.0"/>
+  </properties>
+  <testcase name="test04_false01" classname="testcase.role.RoleTest" time="0.033"/>
+  <testcase name="test01" classname="testcase.role.RoleTest" time="0.245">
+    <failure message="Multiple Failures (1 failure)&#10;	org.opentest4j.AssertionFailedError: 数据库中数据未删除 ==&gt; expected: &lt;true&gt; but was: &lt;false&gt;" type="org.opentest4j.MultipleFailuresError"><![CDATA[org.opentest4j.MultipleFailuresError: 
+Multiple Failures (1 failure)
+	org.opentest4j.AssertionFailedError: 数据库中数据未删除 ==> expected: <true> but was: <false>
+	at testcase.role.RoleTest.test01(RoleTest.java:64)
+]]></failure>
+    <system-out><![CDATA[Request method:	DELETE
+Request URI:	http://localhost:8080/sys/role
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Headers:		Authorization=ea1fb5ab55a641c2b909e78b4d73cdff
+				Accept=*/*
+				Content-Type=application/json
+Cookies:		<none>
+Multiparts:		<none>
+Body:
+[
+    3
+]
+HTTP/1.1 200 
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Fri, 24 Feb 2023 16:11:48 GMT
+Keep-Alive: timeout=60
+Connection: keep-alive
+
+{
+    "code": 0,
+    "msg": "success",
+    "data": null
+}
+Request method:	GET
+Request URI:	http://localhost:8080/sys/role/list
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Headers:		Authorization=ea1fb5ab55a641c2b909e78b4d73cdff
+				Accept=*/*
+				Content-Type=application/x-www-form-urlencoded; charset=ISO-8859-1
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+HTTP/1.1 200 
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Fri, 24 Feb 2023 16:11:48 GMT
+Keep-Alive: timeout=60
+Connection: keep-alive
+
+{
+    "code": 0,
+    "msg": "success",
+    "data": [
+        {
+            "id": 1,
+            "name": "应用管理员",
+            "remark": "备注",
+            "dataScope": 3,
+            "menuIdList": null,
+            "orgIdList": null,
+            "createTime": "2022-12-15 22:32:31"
+        },
+        {
+            "id": 2,
+            "name": "应用管理员",
+            "remark": "备注",
+            "dataScope": 3,
+            "menuIdList": null,
+            "orgIdList": null,
+            "createTime": "2022-12-15 22:32:31"
+        },
+        {
+            "id": 4,
+            "name": "应用管理员",
+            "remark": "备注",
+            "dataScope": 3,
+            "menuIdList": null,
+            "orgIdList": null,
+            "createTime": "2022-12-15 22:32:31"
+        },
+        {
+            "id": 5,
+            "name": "应用管理员",
+            "remark": "备注",
+            "dataScope": 3,
+            "menuIdList": null,
+            "orgIdList": null,
+            "createTime": "2022-12-15 22:32:31"
+        },
+        {
+            "id": 6,
+            "name": "应用管理员",
+            "remark": "备注",
+            "dataScope": 3,
+            "menuIdList": null,
+            "orgIdList": null,
+            "createTime": "2022-12-15 22:32:31"
+        },
+        {
+            "id": 7,
+            "name": "应用管理员",
+            "remark": "备注",
+            "dataScope": 3,
+            "menuIdList": null,
+            "orgIdList": null,
+            "createTime": "2022-12-15 22:32:31"
+        },
+        {
+            "id": 8,
+            "name": "应用管理员",
+            "remark": "备注",
+            "dataScope": 3,
+            "menuIdList": null,
+            "orgIdList": null,
+            "createTime": "2022-12-15 22:32:31"
+        },
+        {
+            "id": 9,
+            "name": "应用管理员",
+            "remark": "备注",
+            "dataScope": 3,
+            "menuIdList": null,
+            "orgIdList": null,
+            "createTime": "2022-12-15 22:32:31"
+        },
+        {
+            "id": 10,
+            "name": "应用管理员",
+            "remark": "备注",
+            "dataScope": 3,
+            "menuIdList": null,
+            "orgIdList": null,
+            "createTime": "2022-12-15 22:32:31"
+        },
+        {
+            "id": 11,
+            "name": "应用管理员",
+            "remark": "备注",
+            "dataScope": 3,
+            "menuIdList": null,
+            "orgIdList": null,
+            "createTime": "2022-12-15 22:32:31"
+        },
+        {
+            "id": 12,
+            "name": "应用管理员",
+            "remark": "备注",
+            "dataScope": 3,
+            "menuIdList": null,
+            "orgIdList": null,
+            "createTime": "2022-12-15 22:32:31"
+        },
+        {
+            "id": 13,
+            "name": "应用管理员",
+            "remark": "备注",
+            "dataScope": 3,
+            "menuIdList": null,
+            "orgIdList": null,
+            "createTime": "2022-12-15 22:32:31"
+        },
+        {
+            "id": 14,
+            "name": "应用管理员",
+            "remark": "备注",
+            "dataScope": 3,
+            "menuIdList": null,
+            "orgIdList": null,
+            "createTime": "2022-12-15 22:32:31"
+        },
+        {
+            "id": 15,
+            "name": "应用管理员",
+            "remark": "备注",
+            "dataScope": 3,
+            "menuIdList": null,
+            "orgIdList": null,
+            "createTime": "2022-12-15 22:32:31"
+        },
+        {
+            "id": 16,
+            "name": "应用管理员",
+            "remark": "备注",
+            "dataScope": 3,
+            "menuIdList": null,
+            "orgIdList": null,
+            "createTime": "2022-12-15 22:32:31"
+        },
+        {
+            "id": 17,
+            "name": "应用管理员",
+            "remark": "备注",
+            "dataScope": 3,
+            "menuIdList": null,
+            "orgIdList": null,
+            "createTime": "2022-12-15 22:32:31"
+        },
+        {
+            "id": 18,
+            "name": "应用管理员",
+            "remark": "备注",
+            "dataScope": 3,
+            "menuIdList": null,
+            "orgIdList": null,
+            "createTime": "2022-12-15 22:32:31"
+        },
+        {
+            "id": 19,
+            "name": "应用管理员",
+            "remark": "备注",
+            "dataScope": 3,
+            "menuIdList": null,
+            "orgIdList": null,
+            "createTime": "2022-12-15 22:32:31"
+        },
+        {
+            "id": 20,
+            "name": "应用管理员",
+            "remark": "备注",
+            "dataScope": 3,
+            "menuIdList": null,
+            "orgIdList": null,
+            "createTime": "2022-12-15 22:32:31"
+        }
+    ]
+}
+]]></system-out>
+  </testcase>
+  <testcase name="test02" classname="testcase.role.RoleTest" time="0.149"/>
+  <testcase name="test03" classname="testcase.role.RoleTest" time="0.042"/>
+  <testcase name="test04" classname="testcase.role.RoleTest" time="0.209"/>
+  <testcase name="test01_false01" classname="testcase.role.RoleTest" time="0.033"/>
+  <testcase name="test01_false02" classname="testcase.role.RoleTest" time="0.029"/>
+  <testcase name="test03_false01" classname="testcase.role.RoleTest" time="0.028"/>
+  <testcase name="test02_false01{String}[1]" classname="testcase.role.RoleTest" time="0.148"/>
+  <testcase name="test02_false01{String}[2]" classname="testcase.role.RoleTest" time="0.143"/>
+  <testcase name="test02_false01{String}[3]" classname="testcase.role.RoleTest" time="0.142"/>
+  <testcase name="test02_false02{String, String}[1]" classname="testcase.role.RoleTest" time="0.037"/>
+  <testcase name="test02_false02{String, String}[2]" classname="testcase.role.RoleTest" time="0.037"/>
+  <testcase name="test02_false03" classname="testcase.role.RoleTest" time="0.033"/>
+</testsuite>
