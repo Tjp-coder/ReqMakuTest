@@ -8,17 +8,44 @@
     <artifactId>ReqMakuTest</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- 版本统一管理，改版本只改这里 -->
+        <restassured.version>5.4.0</restassured.version>
+        <junit5.version>5.10.2</junit5.version>
+        <allure.version>2.24.0</allure.version>
+        <aspectj.version>1.9.21</aspectj.version>
+        <jackson.version>2.16.1</jackson.version>
+        <lombok.version>1.18.30</lombok.version>
+        <assertj.version>3.25.3</assertj.version>
+        <spring.version>6.1.3</spring.version>
+        <druid.version>1.2.20</druid.version>
+        <mysql.version>8.2.0</mysql.version>
+    </properties>
+
     <build>
         <plugins>
-            <!--junit allure maven运行测试用例jar包-->
+            <!-- Surefire 3.x：原生支持 JUnit5，无需额外 provider -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
+                <version>3.2.5</version>
                 <configuration>
+                    <!-- AspectJ 字节码织入，Allure 的 @Step/@Attachment 等注解依赖它 -->
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
+                    <!--
+                        只运行 v3 新包下的测试。
+                        v1/v2 测试需要真实服务器，Phase1 没有服务器，排除在外。
+                        // v1 改进: v1 没有这个限制，导致老测试随 mvn test 一起跑然后全失败。
+                    -->
+                    <includes>
+                        <include>com/maku/apitest/**/*Test.java</include>
+                    </includes>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -28,143 +55,192 @@
                     </dependency>
                 </dependencies>
             </plugin>
+
+            <!-- Allure 报告生成插件，mvn allure:serve 即可本地预览 -->
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
-                <version>2.10.0</version>
+                <version>2.12.0</version>
                 <configuration>
                     <reportVersion>${allure.version}</reportVersion>
-                    <allureDownloadUrl>https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/${allure.version}/allure-commandline-${allure.version}.zip</allureDownloadUrl>
                 </configuration>
             </plugin>
         </plugins>
     </build>
 
-    <!--    属性配置-->
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-        <!--        依赖版本信息-->
-        <lombok.version>1.18.4</lombok.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <aspectj.version>1.9.5</aspectj.version>
-        <allure.version>2.13.2</allure.version>
-    </properties>
-
     <dependencies>
-        <!--        rest-assured框架-->
+
+        <!-- ==================== HTTP 测试核心 ==================== -->
+
+        <!--
+            RestAssured 5.x：DSL 风格的 HTTP 测试框架。
+            given().header().body().when().post().then().statusCode(200) 就是它。
+            // v1 改进: 从 4.4.0 升到 5.4.0，修复了若干 GPath 解析 bug。
+        -->
+        <!--
+            compile scope（不加 <scope>test</scope>）：
+            因为 RequestSpecFactory / BaseApi 在 src/main/java 里，
+            main 编译阶段拿不到 test-scoped 的依赖，所以这三个必须是 compile scope。
+        -->
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>4.4.0</version>
-            <scope>test</scope>
-        </dependency>
-        <!--        jsonpath解析-->
-        <dependency>
-            <groupId>com.jayway.jsonpath</groupId>
-            <artifactId>json-path</artifactId>
-            <version>2.6.0</version>
-            <scope>test</scope>
+            <version>${restassured.version}</version>
         </dependency>
 
-        <!--        json-schema-->
+        <!-- JSON Schema 结构断言，matchesJsonSchemaInClasspath() 用它 -->
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>json-schema-validator</artifactId>
-            <version>4.4.0</version>
-            <scope>test</scope>
+            <version>${restassured.version}</version>
         </dependency>
 
-        <!--        IOUtils-->
+        <!--
+            Allure + RestAssured 集成：自动把每次 HTTP 请求/响应附加到报告。
+            // v1 改进: v1 没有这个，看 Allure 报告时不知道请求发了什么。
+        -->
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.11.0</version>
-            <scope>test</scope>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-rest-assured</artifactId>
+            <version>${allure.version}</version>
         </dependency>
 
-        <!--        json-schema-->
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>json-schema-validator</artifactId>
-            <version>4.4.0</version>
-            <scope>test</scope>
-        </dependency>
+        <!-- ==================== JUnit 5 ==================== -->
 
-        <!--   JUnit5     -->
-        <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-launcher</artifactId>
-            <version>1.5.2</version>
-            <scope>test</scope>
-        </dependency>
+        <!--
+            JUnit 5 三件套：engine（运行测试）+ launcher（Maven 集成）+ params（参数化测试）。
+            vintage-engine 用于兼容旧 JUnit4 语法（v1 遗留代码中若有 @RunWith 注解会需要它）。
+        -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.5.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.vintage</groupId>
-            <artifactId>junit-vintage-engine</artifactId>
-            <version>5.5.2</version>
+            <version>${junit5.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
-            <version>5.5.2</version>
+            <version>${junit5.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <version>1.10.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <version>${junit5.version}</version>
             <scope>test</scope>
         </dependency>
 
-        <!-- allure报告 -->
+        <!--
+            junit-pioneer：提供 @RetryingTest（失败重试），用于网络不稳定场景。
+            // v1 改进: v1 没有重试机制，一次网络抖动就算测试失败。
+        -->
+        <dependency>
+            <groupId>org.junit-pioneer</groupId>
+            <artifactId>junit-pioneer</artifactId>
+            <version>2.2.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- ==================== Allure 报告 ==================== -->
+
+        <!-- Allure + JUnit5 集成：@Feature/@Story/@DisplayName 等注解的运行时支持 -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-junit5</artifactId>
-            <version>2.13.2</version>
+            <version>${allure.version}</version>
             <scope>test</scope>
         </dependency>
 
-        <!--jackson-->
+        <!-- ==================== 断言库 ==================== -->
+
+        <!--
+            AssertJ：流式断言，比 Hamcrest 更直观。
+            assertThat(value).isEqualTo(0).isNotNull() 比 equalTo/notNullValue 更易读。
+            // v1 改进: v1 混用 Hamcrest 和 JUnit assertions，v3 统一用 AssertJ。
+        -->
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.10.0</version>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- ==================== JSON 处理 ==================== -->
+
+        <!--
+            JsonPath（com.jayway）：读取和修改 JSON 文档的工具。
+            DocumentContext.set("$.username", "test") 是 v1 继承下来的核心技巧。
+        -->
+        <!-- compile scope：JsonTemplateUtil 在 src/main/java 中使用 -->
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+
+        <!-- Jackson：Java 对象 ↔ JSON 序列化，RestAssured 用它处理请求体 -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.10.0</version>
+            <version>${jackson.version}</version>
+            <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
-            <version>2.10.0</version>
+            <version>${jackson.version}</version>
         </dependency>
-
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>2.10.0</version>
+            <version>${jackson.version}</version>
         </dependency>
-
-        <!--        jackson处理yaml-->
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-yaml</artifactId>
-            <version>2.10.0</version>
+            <version>${jackson.version}</version>
         </dependency>
 
-        <!-- hutool -->
+        <!-- ==================== 数据库验证 ==================== -->
+
+        <!--
+            Spring JdbcTemplate：封装了 JDBC 样板代码（获取连接、关闭资源等），
+            只需传 SQL 和参数，比原始 JDBC 简洁很多。v1 的 DB 验证思路沿用，升级到 Spring 6。
+            注意：Spring 6 要求 JDK 17+，与本项目目标一致。
+        -->
         <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>5.6.6</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring.version}</version>
         </dependency>
 
-        <!-- lombok -->
+        <!-- Druid 连接池：管理数据库连接，比每次 new Connection 高效很多 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>${druid.version}</version>
+        </dependency>
+
+        <!-- MySQL 驱动：JDBC 连接 MySQL 必需 -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>${mysql.version}</version>
+        </dependency>
+
+        <!-- ==================== 工具库 ==================== -->
+
+        <!--
+            Lombok：用注解消除 getter/setter/builder 样板代码。
+            @Data = @Getter + @Setter + @EqualsAndHashCode + @ToString
+            @Builder = 构建者模式，链式创建对象
+        -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -172,43 +248,22 @@
             <scope>provided</scope>
         </dependency>
 
-
-        <!-- 日志相关 -->
-<!--        <dependency>-->
-<!--            <groupId>log4j</groupId>-->
-<!--            <artifactId>log4j</artifactId>-->
-<!--            <version>1.2.17</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.slf4j</groupId>-->
-<!--            <artifactId>slf4j-log4j12</artifactId>-->
-<!--            <version>1.7.25</version>-->
-<!--        </dependency>-->
-
-
-        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <!-- Hutool：v1 遗留依赖，归档代码中有用到 cn.hutool.json.JSONObject -->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.21</version>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.6.6</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
+        <!-- commons-io：v1 遗留依赖 -->
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-            <version>1.2.3</version>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.11.0</version>
+            <scope>test</scope>
         </dependency>
 
-        <!--spring相关组件-->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>5.2.3.RELEASE</version>
-        </dependency>
-
-        <!--easyexcel-->
-        <!-- https://mvnrepository.com/artifact/com.alibaba/easyexcel -->
+        <!-- EasyExcel：v1 用户导入/导出测试用到 -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>easyexcel</artifactId>
