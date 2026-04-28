@@ -9,15 +9,14 @@ target/
 # Allure 测试原始结果（每次 mvn test 自动生成，不需要跟踪）
 allure-results/
 
-# IntelliJ IDEA - 以下文件存本地状态，不应共享
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/usage.statistics.xml
-.idea/shelf/
-.idea/.idea.iml
+# IntelliJ IDEA（全部本地状态，不共享）
+.idea/
 
 # IntelliJ 模块文件（Maven 项目由 pom.xml 驱动，.iml 是冗余）
 *.iml
+
+# Claude Code 本地配置
+.claude/
 
 # 操作系统产生的垃圾文件
 .DS_Store
