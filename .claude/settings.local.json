@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(java -version)",
+      "Bash(mvn -version)",
+      "Bash(scoop search *)",
+      "PowerShell(scoop install *)",
+      "PowerShell(scoop *)",
+      "Bash(export JAVA_HOME=\"C:/tools/scoop/apps/temurin17-jdk/current\")",
+      "Bash(export PATH=\"$JAVA_HOME/bin:$PATH\")",
+      "Bash(mvn -Denv=test test)",
+      "Bash(\"C:/tools/scoop/apps/temurin17-jdk/current/bin/java\" --list-modules)",
+      "Bash(cp -r jsonschema/. v1/jsonschema/)",
+      "Bash(cp -r params/. v1/params/)",
+      "Bash(cp -r template/. v1/template/)",
+      "Bash(xargs sed *)",
+      "Bash(\"C:/tools/scoop/apps/temurin17-jdk/current/bin/java\" -version)",
+      "Bash(git rm *)",
+      "Bash(git add *)"
+    ]
+  }
+}
