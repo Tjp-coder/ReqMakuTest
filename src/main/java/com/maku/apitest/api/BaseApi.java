@@ -1,5 +1,9 @@
 package com.maku.apitest.api;
 
+
+import com.maku.apitest.client.RequestSpecFactory;
+import io.restassured.specification.RequestSpecification;
+
 /*
  * 职责：所有业务 API 类（AuthApi、UserApi、OrgApi…）的抽象基类，
  *       提供统一的、配置完整的 RequestSpecification 获取入口。
@@ -16,9 +20,6 @@ package com.maku.apitest.api;
  * //          导致 API 类和响应解析逻辑耦合在一起（API 方法调完就把 response 塞进字段）。
  * //          v3 的 API 方法直接 return Response，测试类拿到后自己做断言，职责分离更清晰。
  */
-import com.maku.apitest.client.RequestSpecFactory;
-import io.restassured.specification.RequestSpecification;
-
 public abstract class BaseApi {
 
     protected final RequestSpecFactory factory;

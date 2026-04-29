@@ -1,5 +1,12 @@
 package com.maku.apitest.tests.base;
 
+import com.alibaba.druid.pool.DruidDataSource;
+import com.maku.apitest.client.RequestSpecFactory;
+import com.maku.apitest.config.Env;
+import io.restassured.RestAssured;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.TestInstance;
+import org.springframework.jdbc.core.JdbcTemplate;
 /*
  * 职责：所有测试类的抽象基类，负责框架初始化、登录获取 token、提供数据库验证工具。
  *
@@ -17,14 +24,6 @@ package com.maku.apitest.tests.base;
  * //          导致类 B 的请求全部返回 401。
  * //          v3 改为 protected 实例字段，每个测试类独立持有自己的 token，并发安全。
  */
-import com.alibaba.druid.pool.DruidDataSource;
-import com.maku.apitest.client.RequestSpecFactory;
-import com.maku.apitest.config.Env;
-import io.restassured.RestAssured;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.TestInstance;
-import org.springframework.jdbc.core.JdbcTemplate;
-
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public abstract class BaseTest {
 
