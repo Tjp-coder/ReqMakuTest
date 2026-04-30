@@ -77,17 +77,19 @@ public class JsonTemplateUtil {
     }
 
     /**
-     * 转为 JSON 字符串，传给 RestAssured 的 .body()。
-     * 示例：given().body(util.toJson()).when().post(...)
+     * 转为 JSON 字符串，用于 POST/PUT 请求体：.body(tpl.toJson())
+     * 示例：given().body(tpl.toJson()).when().post("/api/xxx")
      */
     public String toJson() {
         return ctx.jsonString();
     }
 
     /**
-     * 转为 Map<String, Object>，传给 RestAssured 的 .queryParams()。
-     * 适用于 GET 请求的查询参数。
-     * 示例：given().queryParams(util.toMap()).when().get(...)
+     * 转为 Map<String, Object>，用于 GET 请求查询参数：.queryParams(tpl.toMap())
+     * 示例：given().queryParams(tpl.toMap()).when().get("/api/xxx")
+     *
+     * 注意：POST/PUT 请求体请用 toJson()，不要用 toMap() + body(map)，
+     * 两者序列化行为不同，body(map) 可能被 RestAssured 当作 form 参数处理。
      */
     @SuppressWarnings("unchecked")
     public Map<String, Object> toMap() {
