@@ -1,5 +1,10 @@
 package com.maku.apitest.config;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.Properties;
 /*
  * 职责：统一环境配置加载，支持 -Denv=dev/test/prod 切换
  *
@@ -12,12 +17,6 @@ package com.maku.apitest.config;
  * // v1 改进：v1 在 BaseTest.setAll() 里硬编码 "http://localhost" 和 8080，
  * //          换个环境就要改代码，v3 改为配置文件驱动，通过 -Denv 无感切换。
  */
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.util.Properties;
-
 public class Env {
 
     // 饿汉式单例：JVM 类加载时就完成初始化，线程安全且无锁开销

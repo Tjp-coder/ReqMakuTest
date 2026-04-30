@@ -94,6 +94,7 @@ tests/user/
 - 边迁移边沉淀公共模式(比如分页接口的通用断言)
 
 ### 阶段 5:CI + 报告打磨(0.5 天)
+
 - GitHub Actions 或 Jenkinsfile
 - Allure 报告归档 + GitHub Pages 展示(简历加分项)
 - README 写明跑测试/看报告的步骤

@@ -1,5 +1,18 @@
 package com.maku.apitest.client;
 
+import com.maku.apitest.config.Env;
+import io.qameta.allure.restassured.AllureRestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.filter.log.LogDetail;
+import io.restassured.filter.log.RequestLoggingFilter;
+import io.restassured.filter.log.ResponseLoggingFilter;
+import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
+
+import java.io.PrintStream;
+
+import static io.restassured.RestAssured.given;
+
 /*
  * 职责：集中管理所有 HTTP 请求的公共配置，是整个框架中所有请求的唯一入口
  *
@@ -16,24 +29,13 @@ package com.maku.apitest.client;
  * //          多测试类并发运行时，一个类的 setAll() 会覆盖另一个类的配置，导致 401/404。
  * //          v3 每次调用 unauth()/auth() 都返回新的 RequestSpecification 实例，互不干扰。
  */
-import com.maku.apitest.config.Env;
-import io.qameta.allure.restassured.AllureRestAssured;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.filter.log.LogDetail;
-import io.restassured.filter.log.RequestLoggingFilter;
-import io.restassured.filter.log.ResponseLoggingFilter;
-import io.restassured.http.ContentType;
-import io.restassured.specification.RequestSpecification;
-
-import java.io.PrintStream;
-
-import static io.restassured.RestAssured.given;
-
 public class RequestSpecFactory {
 
     // 基础快照：包含 baseUri/port/ContentType 和三个 Filter，不含 token。
     // 作为所有请求的公共基础，unauth() 和 auth() 都在它之上叠加各自特有的配置。
     private final RequestSpecification baseSpec;
+
+    //知识扩展:final 字段在多线程下还有个隐藏好处——JMM(Java 内存模型)保证构造函数结束后,其他线程能立刻看到 final 字段的最终值。普通字段没这个保证。所以 final 字段多线程读是安全的。
 
     /*
      * 为什么用 PrintStream.nullOutputStream()：

@@ -1,5 +1,12 @@
 package com.maku.apitest.utils;
 
+import com.jayway.jsonpath.DocumentContext;
+import com.jayway.jsonpath.JsonPath;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.Map;
 /*
  * 职责：以流式 API 封装 JsonPath，用于加载 JSON 请求模板并按需修改字段。
  *
@@ -18,14 +25,6 @@ package com.maku.apitest.utils;
  * //          测试类拿到后直接调用 ctx.set()、ctx.json() 等底层 API。
  * //          v3 封装成 JsonTemplateUtil，API 更语义化，也隐藏了 "怎么加载文件" 的细节。
  */
-import com.jayway.jsonpath.DocumentContext;
-import com.jayway.jsonpath.JsonPath;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.Map;
-
 public class JsonTemplateUtil {
 
     private final DocumentContext ctx;
