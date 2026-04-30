@@ -1,6 +1,7 @@
 package com.maku.apitest.tests.base;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.maku.apitest.api.AuthApi;
 import com.maku.apitest.client.RequestSpecFactory;
 import com.maku.apitest.config.Env;
 import io.restassured.RestAssured;
@@ -57,16 +58,13 @@ public abstract class BaseTest {
     }
 
     /**
-     * 登录并返回 access_token。
-     * Phase 1（骨架阶段）：返回空字符串，仅作占位符。
-     * Phase 2（Auth 模块完成后）：替换为 new AuthApi(specFactory).loginAndGetToken(env)。
+     * 登录并返回 access_token，在 @BeforeAll 中执行一次，结果缓存到 this.token。
      *
      * 设计为 protected 而非 private，允许子类覆盖以使用不同账号（如测试权限隔离场景）。
+     * 例：需要测试普通用户权限的测试类可以 @Override login() 返回普通用户的 token。
      */
     protected String login() {
-        // TODO Phase 2 完成后替换为真实登录实现：
-        // return new com.maku.apitest.api.AuthApi(specFactory).loginAndGetToken(env);
-        return "";
+        return new AuthApi(specFactory).loginAndGetToken(env);
     }
 
     /*
