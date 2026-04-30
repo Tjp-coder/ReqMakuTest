@@ -5,8 +5,6 @@ import com.maku.apitest.config.Env;
 import com.maku.apitest.utils.JsonTemplateUtil;
 import io.restassured.response.Response;
 
-import java.util.Map;
-
 /*
  * 认证模块 API 封装，对应 MakuBoot 的 /sys/auth/* 接口。
  *
@@ -27,10 +25,11 @@ public class AuthApi extends BaseApi {
     }
 
     /**
-     * 登录接口，接收由 JsonTemplateUtil 构造的 Map 请求体。
+     * 登录接口，接收由 JsonTemplateUtil.toJson() 构造的 JSON 字符串请求体。
+     * POST 请求体用 toJson()，确保 Content-Type: application/json 正确传递。
      * 返回原始 Response，调用方自行做断言或提取数据。
      */
-    public Response login(Map<String, ?> body) {
+    public Response login(String body) {
         return unauthReq()
                 .body(body)
                 .when()
@@ -41,17 +40,16 @@ public class AuthApi extends BaseApi {
 
     /**
      * 登录并返回 access_token，专供 BaseTest.login() 使用。
-     * 内部用 JsonTemplateUtil 加载模板并填入 env 中配置的账号密码。
+     * 内部用 JsonTemplateUtil 加载模板并以 toJson() 输出请求体（POST body 规范）。
      *
-     * 为什么 loginAndGetToken 自己加载模板而非让 BaseTest 准备 Map：
+     * 为什么 loginAndGetToken 自己加载模板而非让 BaseTest 准备 body：
      * BaseTest 不应关心请求体的构造细节（那是 API 层的职责）。
-     * BaseTest 只负责"调 loginAndGetToken 拿 token"。
      */
     public String loginAndGetToken(Env env) {
-        Map<String, ?> body = JsonTemplateUtil.load("template/auth/login.json")
+        String body = JsonTemplateUtil.load("template/auth/login.json")
                 .set("$.username", env.getAuthUsername())
                 .set("$.password", env.getAuthPassword())
-                .toMap();
+                .toJson();
         String token = login(body).path("data.access_token");
         if (token == null || token.isBlank()) {
             throw new IllegalStateException(

@@ -15,8 +15,6 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
-import java.util.Map;
-
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -25,13 +23,13 @@ import static org.assertj.core.api.Assertions.assertThat;
  * 一个 Test 类只测一个接口（v3 约定），覆盖正向 + 5 种异常。
  *
  * 测试方法严格四段式：
- * ① 准备（JsonTemplateUtil 加载/修改模板）
+ * ① 准备（JsonTemplateUtil 加载/修改模板，POST body 用 toJson()）
  * ② 调用（AuthApi.login 返回 Response）
  * ③ 解析（正向用例用 CommonResp<SysTokenVO>；异常用例省略此步）
  * ④ 断言（HTTP 状态码 + 业务 code/msg + 关键字段）
  *
  * // v1 改进：v1 直接用 Map<String,String> 拼请求体，字段名拼错只在运行时发现。
- * //          v3 用 JsonTemplateUtil 读 JSON 模板，模板即文档，异常用例 delete/set 改字段更直观。
+ * //          v3 用 JsonTemplateUtil 读 JSON 模板，toJson() 输出 POST body，更规范。
  */
 @Feature("认证管理模块")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -43,8 +41,8 @@ public class AuthLoginTest extends BaseTest {
     @Story("登录")
     @DisplayName("登录-正向：合法账号密码，返回 access_token")
     void should_return_token_when_valid_credentials() {
-        // ① 准备：直接用模板默认值（admin/admin），不需要修改
-        Map<String, ?> body = JsonTemplateUtil.load("template/auth/login.json").toMap();
+        // ① 准备：直接用模板默认值（admin/admin）；POST body 用 toJson()
+        String body = JsonTemplateUtil.load("template/auth/login.json").toJson();
 
         // ② 调用
         Response response = new AuthApi(specFactory).login(body);
@@ -75,25 +73,24 @@ public class AuthLoginTest extends BaseTest {
      * null 处理策略：
      * - null → delete（字段完全消失，对应"必填项缺失"场景）
      * - 非 null → set（改成指定值，对应"错误值"场景）
-     * 两者在 MakuBoot 服务端通常产生相同的 500 + "用户名或密码错误" 响应。
      */
     @ParameterizedTest(name = "[{index}] {0}")
     @CsvFileSource(resources = "/params/auth/falselogin.csv", numLinesToSkip = 1)
     @Story("登录")
     @DisplayName("登录-异常：错误凭据应返回业务错误")
     void should_return_error_when_wrong_credentials(String description, String username, String password) {
-        // ① 准备：按场景修改模板字段（null 用 delete，否则 set）
+        // ① 准备：按场景修改模板字段；POST body 用 toJson()
         JsonTemplateUtil tpl = JsonTemplateUtil.load("template/auth/login.json");
         if (username == null) tpl.delete("$.username"); else tpl.set("$.username", username);
         if (password == null) tpl.delete("$.password"); else tpl.set("$.password", password);
-        Map<String, ?> body = tpl.toMap();
+        String body = tpl.toJson();
 
         // ② 调用
         Response response = new AuthApi(specFactory).login(body);
 
         // ③ 省略：异常用例只断言 code/msg/data，无需反序列化为 POJO
 
-        // ④ 断言：as() 给断言上下文加场景名，失败时报告更易定位
+        // ④ 断言
         assertThat(response.statusCode()).as("HTTP 状态码 - %s", description).isEqualTo(200);
         assertThat((Integer) response.path("code")).as("业务 code - %s", description).isEqualTo(500);
         assertThat((String) response.path("msg")).as("业务 msg - %s", description).isEqualTo("用户名或密码错误");
