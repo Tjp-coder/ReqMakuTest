@@ -2,20 +2,23 @@ package com.maku.apitest.api;
 
 import com.maku.apitest.client.RequestSpecFactory;
 import com.maku.apitest.config.Env;
-import com.maku.apitest.model.LoginReq;
+import com.maku.apitest.utils.JsonTemplateUtil;
 import io.restassured.response.Response;
+
+import java.util.Map;
 
 /*
  * 认证模块 API 封装，对应 MakuBoot 的 /sys/auth/* 接口。
  *
  * 设计原则：
  * - 测试类只做"调用 + 断言"，不知道 URL、请求头、序列化细节。
- * - AuthApi 封装这些细节，测试类调 login()/logout() 就够了。
- * - loginAndGetToken() 是 BaseTest 专用的便捷方法，避免 BaseTest 直接操作 Response。
+ * - login() 接收 Map<String, ?> 而非请求 POJO：
+ *   请求侧统一用 JsonTemplateUtil + 模板构造 Map，
+ *   异常用例可灵活删字段（必填项缺失）或改字段（错误值），无需为每种变体建一个 POJO。
  *
- * // v1 改进：v1 的 Auth.java 继承 BaseInterface，login() 把 token 写入 BaseInterface.token 静态字段，
- * //          多线程时一个测试类的 login 会覆盖另一个类的 token。
- * //          v3 直接 return Response，调用方自己从 Response 中取 token 存到实例字段，并发安全。
+ * // v1 改进：v1 的 Auth.java 继承 BaseInterface，login() 把 token 写入 static 字段，
+ * //          多线程时类 A 的 login 会覆盖类 B 正在用的 token，导致 401。
+ * //          v3 直接 return Response，调用方自己取 token 存到实例字段，并发安全。
  */
 public class AuthApi extends BaseApi {
 
@@ -24,13 +27,12 @@ public class AuthApi extends BaseApi {
     }
 
     /**
-     * 登录接口。
-     * 使用 LoginReq POJO，由 RestAssured + Jackson 自动序列化为 JSON。
-     * 返回原始 Response，让调用方自己做断言或提取数据。
+     * 登录接口，接收由 JsonTemplateUtil 构造的 Map 请求体。
+     * 返回原始 Response，调用方自行做断言或提取数据。
      */
-    public Response login(String username, String password) {
+    public Response login(Map<String, ?> body) {
         return unauthReq()
-                .body(LoginReq.builder().username(username).password(password).build())
+                .body(body)
                 .when()
                 .post("/sys/auth/login")
                 .then()
@@ -38,17 +40,19 @@ public class AuthApi extends BaseApi {
     }
 
     /**
-     * 登录并直接返回 access_token，专供 BaseTest.login() 使用。
-     * 用 GPath（RestAssured 内置）提取嵌套字段，比手写 JSON 解析更简洁。
+     * 登录并返回 access_token，专供 BaseTest.login() 使用。
+     * 内部用 JsonTemplateUtil 加载模板并填入 env 中配置的账号密码。
      *
-     * GPath 知识点：
-     * response.path("data.access_token") 等价于：
-     *   JsonPath.from(response.asString()).getString("data.access_token")
-     * 区别：path() 是 RestAssured 封装，更简短；两者底层 GPath 表达式语法一致。
+     * 为什么 loginAndGetToken 自己加载模板而非让 BaseTest 准备 Map：
+     * BaseTest 不应关心请求体的构造细节（那是 API 层的职责）。
+     * BaseTest 只负责"调 loginAndGetToken 拿 token"。
      */
     public String loginAndGetToken(Env env) {
-        String token = login(env.getAuthUsername(), env.getAuthPassword())
-                .path("data.access_token");
+        Map<String, ?> body = JsonTemplateUtil.load("template/auth/login.json")
+                .set("$.username", env.getAuthUsername())
+                .set("$.password", env.getAuthPassword())
+                .toMap();
+        String token = login(body).path("data.access_token");
         if (token == null || token.isBlank()) {
             throw new IllegalStateException(
                     "登录失败：未能获取 access_token，请检查 test.properties 中的 authUsername/authPassword");
@@ -57,8 +61,7 @@ public class AuthApi extends BaseApi {
     }
 
     /**
-     * 登出接口。
-     * 使用 req(token) 自动带上 Authorization Header，对应 MakuBoot 鉴权方式。
+     * 登出接口，使用 req(token) 自动带上 Authorization Header。
      */
     public Response logout(String token) {
         return req(token)
