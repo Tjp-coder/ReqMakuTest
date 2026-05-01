@@ -1,4 +1,6 @@
 {
   "username": "admin",
-  "password": "admin"
+  "password": "admin",
+  "key": "",
+  "captcha": ""
 }

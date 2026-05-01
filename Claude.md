@@ -117,6 +117,108 @@ Maku 系统接口自动化测试框架 v3。这是一个 Java 接口自动化测
   - ✅ Schema 结构断言(matchesJsonSchemaInClasspath)
   - ✅ Allure 注解 @Feature/@Story/@DisplayName
 
+# 请求模板完整性要求（必须做）
+
+- JSON 请求模板（`template/` 目录下）**必须包含接口文档中定义的所有请求参数**，包括可选字段
+- 字段默认值与接口文档的请求示例保持一致（通常为空字符串 `""`）
+- 理由① 模板是接口文档的可执行版本，缺字段等于遮蔽了接口能力
+- 理由② 异常用例依赖 `.delete("$.fieldName")` 构造"字段缺失"场景，模板里不存在的字段删不了
+- 数据驱动 CSV 的列必须与模板字段一一对应：**null（空单元格）→ `.delete()` 删字段；非 null → `.set()` 改字段**
+
+# 测试用例设计规范(必读)
+
+## 覆盖标准:档位 2(基础回归)
+
+每个接口至少包含以下场景:
+- **1 个正向用例**:用合法参数,验证业务正常
+- **2-3 个异常用例**:常见错误场景(凭证错误、必填缺失、未授权)
+- **可选边界用例**:超长/特殊字符,**仅在接口明确有此需求时加**
+
+不要追求"测全",**追求"测准"**。每个接口 5-8 个用例为宜,
+超过 10 个考虑是不是过度设计。
+
+## 不测什么(明确排除)
+
+- ❌ 测试环境关闭的功能(如 Maku 默认关闭的验证码 captcha/key 字段)
+- ❌ 跟服务端无关的字段校验(纯前端校验)
+- ❌ 登录接口的"未授权访问"(它本来就不要 token)
+- ❌ SQL 注入、XSS:除非明确安全测试需求,这些走专门工具
+
+判断标准:**问自己"服务端真的会基于这个字段做不同行为吗?"
+不会就别测,白浪费时间。**
+
+## CSV 文件组织规则
+
+**一个 CSV 文件 = 一种参数处理逻辑**:
+
+| CSV 文件名约定              | 处理方式        | 对应测试方法                            |
+| --------------------------- | --------------- | --------------------------------------- |
+| `<动作>_invalid_<字段>.csv` | `set` 改字段值  | should_fail_when_invalid_xxx            |
+| `<动作>_missing_field.csv`  | `delete` 删字段 | should_fail_when_missing_required_field |
+| `<动作>_boundary.csv`       | `set` 边界值    | should_fail_when_boundary_xxx           |
+
+**反例**:把"改字段"和"删字段"混在一个 CSV 里,测试方法要写
+if-else 判断,代码丑且易错。
+
+## CSV 列设计
+
+每个 CSV 第一列必须是 `description`,**人类可读的场景描述**,
+后续列是用例参数 + 期望结果。
+
+例(凭证错误):
+```csv
+description,username,password,expectedMsg
+用户名不存在,admin1,admin,用户名或密码错误
+密码错误,admin,admin1,用户名或密码错误
+```
+
+例(必填缺失):
+```csv
+description,missingField,expectedMsg
+用户名缺失,username,用户名不能为空
+密码缺失,password,密码不能为空
+```
+
+## 断言粒度
+
+异常用例的断言**至少包含**:
+- HTTP 状态码:`statusCode(200)`(Maku 业务错误也返回 200)
+- 业务 code 非 0:`body("code", not(equalTo(0)))`
+- 业务 msg 精确文案:`body("msg", equalTo(expectedMsg))`
+
+**特别注意**:对于"用户名错误"和"密码错误",期望返回相同提示
+("用户名或密码错误"),这是防账号枚举的安全规范,不是 bug。
+
+## 命名规范
+
+测试方法命名:`should_<期望>_when_<条件>`
+
+| 场景             | 命名                                         |
+| ---------------- | -------------------------------------------- |
+| 正向             | `should_return_token_when_valid_credentials` |
+| 凭证错误         | `should_fail_when_invalid_credentials`       |
+| 必填缺失         | `should_fail_when_missing_required_field`    |
+| 边界             | `should_fail_when_username_too_long`         |
+| 未授权(非登录类) | `should_return_401_when_no_token`            |
+
+## 模板和 CSV 的分工(必读)
+
+- 请求模板:按接口文档列全字段,默认值跑通正向
+- CSV 数据驱动:只列本次要变化的字段,不变的字段由模板兜底
+
+判断口诀:**模板管"全集",CSV 管"差异"。**
+
+✅ 正例:
+模板 login.json:{"username":"admin","password":"admin","key":"","captcha":""}
+CSV(只列变化):
+  description,username,password,expectedMsg
+  用户名不存在,admin1,admin,用户名或密码错误
+
+❌ 反例:
+- 模板只写 username/password,缺 key/captcha(违反"全集"原则)
+- CSV 把所有字段都列出来,不变的字段每行重复(冗余,违反"差异"原则)
+- CSV 字段名和模板字段名拼写不一致(改字段时易出错)
+
 # POJO 与请求模板的边界(必读)
 
 ## 总体策略

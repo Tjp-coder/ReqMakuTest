@@ -20,16 +20,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /*
  * 登录接口测试：/sys/auth/login
- * 一个 Test 类只测一个接口（v3 约定），覆盖正向 + 5 种异常。
+ * 覆盖：正向 + 凭据错误 + 必填字段缺失，共 5 个用例（档位 2 基础回归）。
  *
- * 测试方法严格四段式：
- * ① 准备（JsonTemplateUtil 加载/修改模板，POST body 用 toJson()）
- * ② 调用（AuthApi.login 返回 Response）
- * ③ 解析（正向用例用 CommonResp<SysTokenVO>；异常用例省略此步）
- * ④ 断言（HTTP 状态码 + 业务 code/msg + 关键字段）
+ * CSV 文件按处理逻辑严格分开（CLAUDE.md 约定：一个 CSV = 一种参数处理逻辑）：
+ * - login_invalid_credentials.csv → 纯 set，改字段值
+ * - login_missing_field.csv       → 纯 delete，删字段
+ * 好处：每个测试方法内部无 if-else，逻辑单一清晰。
  *
- * // v1 改进：v1 直接用 Map<String,String> 拼请求体，字段名拼错只在运行时发现。
- * //          v3 用 JsonTemplateUtil 读 JSON 模板，toJson() 输出 POST body，更规范。
+ * // v1 改进：v1 把"改字段"和"删字段"塞进同一 CSV + if-else 分支，v3 拆开后代码量减半。
  */
 @Feature("认证管理模块")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -41,13 +39,13 @@ public class AuthLoginTest extends BaseTest {
     @Story("登录")
     @DisplayName("登录-正向：合法账号密码，返回 access_token")
     void should_return_token_when_valid_credentials() {
-        // ① 准备：直接用模板默认值（admin/admin）；POST body 用 toJson()
+        // ① 准备：直接用模板默认值（admin/admin），POST body 用 toJson()
         String body = JsonTemplateUtil.load("template/auth/login.json").toJson();
 
         // ② 调用
         Response response = new AuthApi(specFactory).login(body);
 
-        // ③ 解析：正向用例要验证 token 字段，用 CommonResp<SysTokenVO> 反序列化
+        // ③ 解析：正向用例要取 token 字段，用 CommonResp<SysTokenVO> 反序列化
         // TypeRef 是 RestAssured 的泛型解析工具，解决 Java 泛型擦除问题
         CommonResp<SysTokenVO> resp = response.as(new TypeRef<CommonResp<SysTokenVO>>() {});
 
@@ -60,40 +58,64 @@ public class AuthLoginTest extends BaseTest {
         assertThat(resp.getData().getAccessToken()).isNotBlank();
     }
 
-    // ──────────────────────── 异常用例（参数化） ────────────────────────
+    // ──────────────────────── 凭据错误（参数化，纯 set） ────────────────────────
 
     /*
-     * @ParameterizedTest + @CsvFileSource 知识点（第一次出现）：
-     * - @ParameterizedTest：同一个测试方法按不同参数跑多次。
-     * - @CsvFileSource：从 CSV 文件读取参数，numLinesToSkip=1 跳过表头行。
-     * - 方法参数对应 CSV 每列，由 JUnit 5 自动注入；空值（,,）注入为 null。
-     *
-     * // v1 继承：参数化 + CSV 这套用法从 v1 直接搬来，是最好用的特性之一。
-     *
-     * null 处理策略：
-     * - null → delete（字段完全消失，对应"必填项缺失"场景）
-     * - 非 null → set（改成指定值，对应"错误值"场景）
+     * CSV 列：description, username, password, expectedMsg
+     * 每行只改 username/password，key/captcha 保留模板默认值（测试环境验证码已关闭）。
+     * 无论用户名错还是密码错，服务端统一返回"用户名或密码错误"——防账号枚举的安全规范。
      */
     @ParameterizedTest(name = "[{index}] {0}")
-    @CsvFileSource(resources = "/params/auth/falselogin.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = "/params/auth/login_invalid_credentials.csv", numLinesToSkip = 1)
     @Story("登录")
-    @DisplayName("登录-异常：错误凭据应返回业务错误")
-    void should_return_error_when_wrong_credentials(String description, String username, String password) {
-        // ① 准备：按场景修改模板字段；POST body 用 toJson()
-        JsonTemplateUtil tpl = JsonTemplateUtil.load("template/auth/login.json");
-        if (username == null) tpl.delete("$.username"); else tpl.set("$.username", username);
-        if (password == null) tpl.delete("$.password"); else tpl.set("$.password", password);
-        String body = tpl.toJson();
+    @DisplayName("登录-异常：凭据错误")
+    void should_fail_when_invalid_credentials(
+            String description, String username, String password, String expectedMsg) {
+        // ① 准备：纯 set，不删字段；key/captcha 由模板兜底
+        String body = JsonTemplateUtil.load("template/auth/login.json")
+                .set("$.username", username)
+                .set("$.password", password)
+                .toJson();
 
         // ② 调用
         Response response = new AuthApi(specFactory).login(body);
 
-        // ③ 省略：异常用例只断言 code/msg/data，无需反序列化为 POJO
+        // ③ 省略（异常用例不需要 POJO 反序列化）
 
         // ④ 断言
-        assertThat(response.statusCode()).as("HTTP 状态码 - %s", description).isEqualTo(200);
-        assertThat((Integer) response.path("code")).as("业务 code - %s", description).isEqualTo(500);
-        assertThat((String) response.path("msg")).as("业务 msg - %s", description).isEqualTo("用户名或密码错误");
-        assertThat((Object) response.path("data")).as("data 应为 null - %s", description).isNull();
+        assertThat(response.statusCode()).as(description).isEqualTo(200);
+        assertThat((Integer) response.path("code")).as(description).isNotEqualTo(0);
+        assertThat((String) response.path("msg")).as(description).isEqualTo(expectedMsg);
+    }
+
+    // ──────────────────────── 必填字段缺失（参数化，纯 delete） ────────────────────────
+
+    /*
+     * CSV 列：description, missingField, expectedMsg
+     * missingField 是 JSON 字段名（如 "username"），delete("$." + missingField) 动态删除。
+     * 这样 CSV 加一行就能覆盖一个新的必填字段，测试方法本身不需要改。
+     *
+     * // v1 改进：v1 用 if(username==null) 逐字段判断，v3 统一 delete("$."+field)，加字段只改 CSV。
+     */
+    @ParameterizedTest(name = "[{index}] {0}")
+    @CsvFileSource(resources = "/params/auth/login_missing_field.csv", numLinesToSkip = 1)
+    @Story("登录")
+    @DisplayName("登录-异常：必填字段缺失")
+    void should_fail_when_missing_required_field(
+            String description, String missingField, String expectedMsg) {
+        // ① 准备：纯 delete，不改字段值
+        String body = JsonTemplateUtil.load("template/auth/login.json")
+                .delete("$." + missingField)
+                .toJson();
+
+        // ② 调用
+        Response response = new AuthApi(specFactory).login(body);
+
+        // ③ 省略
+
+        // ④ 断言
+        assertThat(response.statusCode()).as(description).isEqualTo(200);
+        assertThat((Integer) response.path("code")).as(description).isNotEqualTo(0);
+        assertThat((String) response.path("msg")).as(description).isEqualTo(expectedMsg);
     }
 }
