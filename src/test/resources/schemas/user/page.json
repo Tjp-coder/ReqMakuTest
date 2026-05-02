@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MakuBoot 用户分页响应结构",
+  "type": "object",
+  "required": ["code", "msg", "data"],
+  "properties": {
+    "code": { "type": "integer" },
+    "msg":  { "type": "string" },
+    "data": {
+      "type": "object",
+      "required": ["total", "list"],
+      "properties": {
+        "total": { "type": "integer" },
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "username", "status"],
+            "properties": {
+              "id":       { "type": "integer" },
+              "username": { "type": "string"  },
+              "realName": { "type": ["string", "null"] },
+              "gender":   { "type": ["integer", "null"] },
+              "mobile":   { "type": ["string", "null"] },
+              "orgId":    { "type": ["integer", "null"] },
+              "status":   { "type": "integer" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

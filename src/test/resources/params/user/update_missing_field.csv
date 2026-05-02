@@ -1,0 +1,5 @@
+description,missingField,expectedMsg
+用户名缺失,username,用户名不能为空
+姓名缺失,realName,姓名不能为空
+手机号缺失,mobile,手机号不能为空
+机构ID缺失,orgId,机构ID不能为空

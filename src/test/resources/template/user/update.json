@@ -1,0 +1,17 @@
+{
+  "id": 1,
+  "username": "test_v3_upd_001",
+  "realName": "测试修改用户",
+  "avatar": "",
+  "orgId": 1777273622,
+  "orgName": "",
+  "password": "",
+  "gender": 0,
+  "email": "",
+  "mobile": "13800000002",
+  "roleIdList": [],
+  "postIdList": [],
+  "status": 1,
+  "superAdmin": 0,
+  "createTime": ""
+}
