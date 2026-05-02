@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MakuBoot 当前用户信息响应结构",
+  "description": "用于 /sys/user/info 正向响应的结构校验",
+  "type": "object",
+  "required": ["code", "msg", "data"],
+  "properties": {
+    "code": { "type": "integer" },
+    "msg":  { "type": "string" },
+    "data": {
+      "type": "object",
+      "required": ["id", "username"],
+      "properties": {
+        "id":       { "type": "integer" },
+        "username": { "type": "string" },
+        "realName": { "type": ["string", "null"] },
+        "gender":   { "type": ["integer", "null"] },
+        "email":    { "type": ["string", "null"] },
+        "mobile":   { "type": ["string", "null"] },
+        "status":   { "type": ["integer", "null"] },
+        "superAdmin": { "type": ["integer", "null"] }
+      }
+    }
+  }
+}

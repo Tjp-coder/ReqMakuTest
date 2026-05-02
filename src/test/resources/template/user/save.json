@@ -1,0 +1,17 @@
+{
+  "id": null,
+  "username": "test_v3_save_001",
+  "realName": "测试用户",
+  "avatar": "",
+  "orgId": 1777273622,
+  "orgName": "",
+  "password": "Test@123456",
+  "gender": 0,
+  "email": "",
+  "mobile": "13800000001",
+  "roleIdList": [],
+  "postIdList": [],
+  "status": 1,
+  "superAdmin": 0,
+  "createTime": ""
+}

@@ -67,6 +67,25 @@ public abstract class BaseTest {
         return new AuthApi(specFactory).loginAndGetToken(env);
     }
 
+    /**
+     * 确保 sys_org 表中存在测试机构 test_v3_org，返回其 id（幂等，多次调用安全）。
+     *
+     * 使用 WHERE NOT EXISTS 保证单条记录，避免 INSERT IGNORE 在无唯一索引时重复插入。
+     * 测试机构是跨模块的测试基础设施：凡需要创建用户的测试类（User/Org/Post 等）
+     * 都可在 @BeforeAll 中调用此方法，不需要各自重复实现。
+     *
+     * 注：测试机构不在测试结束后删除，因为它是共享基础设施，其他测试类可能仍在使用。
+     * 测试产生的「用户数据」由各自测试类的 @AfterEach 负责清理，与机构数据分开管理。
+     */
+    protected Long ensureTestOrg() {
+        jdbcTemplate.update(
+                "INSERT INTO sys_org (name, pid, sort, version, deleted, creator) " +
+                "SELECT 'test_v3_org',0,999,0,0,10000 WHERE NOT EXISTS " +
+                "(SELECT 1 FROM sys_org WHERE name='test_v3_org' AND deleted=0)");
+        return jdbcTemplate.queryForObject(
+                "SELECT id FROM sys_org WHERE name='test_v3_org' AND deleted=0 LIMIT 1", Long.class);
+    }
+
     /*
      * 为什么用 DruidDataSource 而不是 v1 的 JDBCUtils（从 druid.properties 读）：
      * v3 的 DB 连接信息统一从 Env 来，Env 从 config/test.properties 读，
