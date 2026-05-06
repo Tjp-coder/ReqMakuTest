@@ -1,0 +1,23 @@
+name: Deploy Allure Report to GitHub Pages
+
+on:
+  # 推到 main 分支或者手动触发都可以
+  push:
+    branches: [ main ]
+    paths:
+      - 'allure-report/**'
+  workflow_dispatch:  # 让你能在 GitHub 网页上手动点一下触发
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./allure-report
+          publish_branch: gh-pages
