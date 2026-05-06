@@ -6,8 +6,11 @@ target/
 *.jar
 *.war
 
-# Allure 测试原始结果（每次 mvn test 自动生成，不需要跟踪）
-allure-results/
+# Allure 测试原始结果（每次 mvn test 自动生成，不需要跟踪,展示）
+#allure-results/
+
+# Allure 命令行工具安装目录
+.allure
 
 # IntelliJ IDEA（全部本地状态，不共享）
 .idea/
