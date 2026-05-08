@@ -45,6 +45,10 @@ public class RequestSpecFactory {
      * 如需开启控制台日志，把 nullOutputStream() 改为 System.out 即可。
      */
     public RequestSpecFactory(Env env) {
+        // 检查是否开启调试日志，兼容调试模式
+        boolean debugLogs = Boolean.parseBoolean(System.getProperty("debug.logs", "false"));
+        PrintStream logStream = debugLogs ? System.out : new PrintStream(PrintStream.nullOutputStream());
+
         PrintStream silent = new PrintStream(PrintStream.nullOutputStream());
         this.baseSpec = new RequestSpecBuilder()
                 .setBaseUri(env.getBaseUrl())
@@ -53,8 +57,8 @@ public class RequestSpecFactory {
                 // Allure 附件 Filter：每次请求后自动把 curl 命令和响应体写入 Allure 报告
                 .addFilter(new AllureRestAssured())
                 // 日志 Filter：输出到 silent 流（静默），失败排查靠 Allure 报告
-                .addFilter(new RequestLoggingFilter(LogDetail.ALL, silent))
-                .addFilter(new ResponseLoggingFilter(LogDetail.ALL, silent))
+                .addFilter(new RequestLoggingFilter(LogDetail.ALL, logStream))
+                .addFilter(new ResponseLoggingFilter(LogDetail.ALL, logStream))
                 .build();
     }
 
