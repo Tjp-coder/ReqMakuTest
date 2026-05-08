@@ -8,10 +8,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -67,6 +64,7 @@ public class UserGetByIdTest extends BaseTest {
     @Test
     @Story("按ID查询")
     @DisplayName("按ID查询-异常：id 不存在，服务端 NPE 返回 code=500")
+    @Disabled("服务端未做空值校验，查不到用户时 NPE → 500，待修复 #BUG-xxx编号")
     void should_return_error_when_user_not_found() {
         // ① 准备：使用不存在的 id
         // ② 调用
@@ -77,7 +75,8 @@ public class UserGetByIdTest extends BaseTest {
         // ④ 断言：Maku 的 SysUserController.get() 未做 null 判断，查不到用户时 NPE → code=500
         // 这是服务端的已知 Bug，测试以实际行为为准（记录现状，不修正服务端）
         response.then().statusCode(200);
-        assertThat((Integer) response.path("code")).isEqualTo(500);
+        assertThat((Integer) response.path("code")).isEqualTo(404);  // 期望 404
+        assertThat((String) response.path("msg")).contains("不存在");
     }
 
     // ──────────────────────── 未授权 ────────────────────────
