@@ -67,6 +67,7 @@ jobs:
             -DdbPassword="${{ secrets.DB_PASSWORD }}" \
             -DauthUsername=admin \
             -DauthPassword=admin
+        timeout-minutes: 15
         continue-on-error: true   # 测试挂了也继续部署报告
 
       - name: 准备 Allure 报告目录
