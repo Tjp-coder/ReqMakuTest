@@ -97,6 +97,10 @@ public abstract class BaseTest {
         ds.setUsername(env.getDbUsername());
         ds.setPassword(env.getDbPassword());
         ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        // 连接超时 5 秒：DB 不通时快速失败，而不是死等到 CI timeout-minutes 强杀
+        ds.setConnectTimeout(5000);   // TCP 握手超时
+        ds.setSocketTimeout(10000);   // 单次 SQL 读写超时
+        ds.setMaxWait(10000);         // 从连接池拿连接最多等 10 秒，超时立即抛异常
         return new JdbcTemplate(ds);
     }
 }
