@@ -1,0 +1,98 @@
+name: 接口自动化回归测试
+
+on:
+  # 触发 1:被测系统部署完成后跨仓库触发
+  repository_dispatch:
+    types: [maku-deployed]
+
+  # 触发 2:测试代码自身 push
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'pom.xml'
+      - '.github/workflows/ci-test.yml'
+
+  # 触发 3:每天北京时间 02:00 (UTC 18:00 前一天)
+  schedule:
+    - cron: '0 18 * * *'
+
+  # 触发 4:手动
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 检出测试代码
+        uses: actions/checkout@v4
+
+      - name: 显示触发来源
+        run: |
+          echo "触发事件: ${{ github.event_name }}"
+          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            echo "上游触发: ${{ github.event.client_payload.trigger }}"
+            echo "上游 commit: ${{ github.event.client_payload.commit_sha }}"
+          fi
+
+      - name: 配置 JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: 等待被测系统就绪
+        run: |
+          echo "等待 Maku 服务可用..."
+          for i in $(seq 1 30); do
+            if curl -sf -o /dev/null -m 5 http://${{ secrets.MAKU_HOST }}:8080/sys/auth/captcha; then
+              echo "✅ Maku 已就绪"
+              exit 0
+            fi
+            echo "等待中... ($i/30)"
+            sleep 5
+          done
+          echo "❌ Maku 服务无法访问"
+          exit 1
+
+      - name: 跑全量测试
+        run: |
+          mvn -B clean test allure:report \
+            -DbaseUrl=http://${{ secrets.MAKU_HOST }} \
+            -Dport=8080 \
+            -DdbUrl="jdbc:mysql://${{ secrets.MAKU_HOST }}:3306/maku_boot?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&useSSL=false" \
+            -DdbUsername=root \
+            -DdbPassword="${{ secrets.DB_PASSWORD }}" \
+            -DauthUsername=admin \
+            -DauthPassword=admin
+        continue-on-error: true   # 测试挂了也继续部署报告
+
+      - name: 准备 Allure 报告目录
+        run: |
+          mkdir -p allure-report
+          if [ -d "target/site/allure-maven-plugin" ]; then
+            cp -r target/site/allure-maven-plugin/* allure-report/
+          else
+            echo "⚠️ Allure 报告未生成,创建空报告"
+            echo "<h1>测试运行失败,无报告</h1>" > allure-report/index.html
+          fi
+          echo "$(date '+%Y-%m-%d %H:%M:%S CST')" > allure-report/last-run.txt
+
+      - name: 部署 Allure 到 GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./allure-report
+          publish_branch: gh-pages
+          commit_message: 'docs: CI 自动更新 Allure 报告 [${{ github.event_name }}]'
+
+      - name: 检查测试结果
+        run: |
+          if [ -f "target/surefire-reports/failsafe-summary.xml" ] || \
+             grep -l "<failure" target/surefire-reports/*.xml 2>/dev/null; then
+            echo "❌ 有失败用例"
+            exit 1
+          fi
+          echo "✅ 全部通过"
