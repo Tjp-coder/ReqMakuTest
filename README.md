@@ -1,6 +1,6 @@
 # ReqMakuTest
 
-基于 [MakuBoot](https://gitee.com/makunet/maku-boot) 后端系统的接口自动化测试框架，个人学习项目，记录从 v1 到 v3 的迭代重构过程。
+基于 [MakuBoot](https://github.com/Tjp-coder/ReqMakuTest) 后端系统的接口自动化测试框架，个人学习项目，记录从 v1 到 v3 的迭代重构过程。
 
 ---
 
