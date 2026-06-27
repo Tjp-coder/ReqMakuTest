@@ -1,0 +1,27 @@
+<div>PUT to http://8.138.30.161:8080/sys/user/password</div>
+
+<h4>Body</h4>
+<div>
+    <pre class="preformated-text">
+{
+    &quot;password&quot;: &quot;TestPwd@v3001!&quot;,
+    &quot;newPassword&quot;: &quot;TestPwd@v3002!&quot;
+}    </pre>
+</div>
+
+<h4>Headers</h4>
+<div>
+        <div>Authorization: 05955dad3ede4975a1f3528c7fb30432</div>
+        <div>Accept: */*</div>
+        <div>Content-Type: application/json</div>
+</div>
+
+
+
+<h4>Curl</h4>
+<div>
+curl -v -X PUT &#39;http://8.138.30.161:8080/sys/user/password&#39; -H &#39;Authorization: 05955dad3ede4975a1f3528c7fb30432&#39; -H &#39;Accept: */*&#39; -H &#39;Content-Type: application/json&#39; -d &#39;{
+    &quot;password&quot;: &quot;TestPwd@v3001!&quot;,
+    &quot;newPassword&quot;: &quot;TestPwd@v3002!&quot;
+}&#39;
+</div>
